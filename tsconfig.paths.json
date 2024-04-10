@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@components": ["src/renderer/components/index.ts"],
+      "@containers": ["src/renderer/containers/index.ts"],
+      "@pages": ["src/renderer/pages/index.tsx"],
+      "@pages*": ["src/renderer/pages*"],
+      "@states": ["src/states/index.ts"],
+      "@states*": ["src/states*"],
+      "@interfaces": ["src/interfaces/index.ts"],
+      "@interfaces*": ["src/interfaces*"],
+      "@constants": ["src/assets/constants/index.ts"],
+      "@assets*": ["src/assets*"],
+      "@theme*": ["src/theme*"],
+      "@apis": ["src/apis/index.ts"],
+      "@apis*": ["src/apis*"],
+      "@utils": ["src/utils/index.ts"],
+      "@*": ["src*"]
+    }
+  }
+}
