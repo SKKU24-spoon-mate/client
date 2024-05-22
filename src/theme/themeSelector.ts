@@ -10,6 +10,7 @@ export const themeSelector = (mode: string) => ({
         body: {
           width: '100%',
           height: '100%',
+          backgroundColor: '#FAF7D7',
         },
         img: {
           userSelect: 'none',
@@ -29,12 +30,12 @@ export const themeSelector = (mode: string) => ({
           outline: 'none',
           border: 'none',
         },
-        // '@font-face': {
-        //   fontFamily: 'ConFont',
-        //   fontStyle: 'normal',
-        //   fontWeight: 'normal',
-        //   src: `url(${ContentFont}) format('truetype')`,
-        // },
+        '@font-face': {
+          fontFamily: 'BMHANNAPro',
+          src: `url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.0/BMHANNAPro.woff') format('woff')`,
+          fontWeight: 'normal',
+          fontStyle: 'normal',
+        },
 
         // fallbacks: [
         //   {
@@ -51,6 +52,6 @@ export const themeSelector = (mode: string) => ({
   },
   typography: {
     // Use the system font instead of the default Roboto font.
-    // fontFamily: ['ConFont'].join(','),
+    fontFamily: 'BMHANNAPro',
   },
 });
