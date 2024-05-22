@@ -1,9 +1,11 @@
-export const themeSelector = (mode: string) => ({
+import { ThemeOptions } from '@mui/material';
+
+export const themeSelector = (mode: string): ThemeOptions => ({
   components: {
     MuiCssBaseline: {
       styleOverrides: {
         html: {
-          margin: '0',
+          margin: 0,
           width: '100%',
           height: '100%',
         },
@@ -16,7 +18,7 @@ export const themeSelector = (mode: string) => ({
           userSelect: 'none',
         },
         '#root': {
-          margin: '0',
+          margin: 0,
           width: '100%',
           height: '100%',
           // minWidth: 1920,

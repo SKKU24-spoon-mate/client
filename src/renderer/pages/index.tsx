@@ -6,7 +6,7 @@ import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-d
 
 import { themeSelector } from '@theme/themeSelector';
 
-import { Home } from './Home';
+import { RegisterPage } from './RegisterPage';
 
 const AppRenderer: React.FC = () => {
   const themeMode = useMemo(() => createTheme(themeSelector('light')), []);
@@ -27,7 +27,7 @@ export const AppRoute: React.FC = () => {
   return (
     <React.Fragment>
       <Routes>
-        <Route index element={<Home />} />
+        <Route index element={<RegisterPage />} />
         <Route path="*" element={<Navigate to={'/spoon-mate'} />} />
       </Routes>
     </React.Fragment>

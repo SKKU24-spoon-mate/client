@@ -38,3 +38,19 @@ export const MenuButton = styled(Button)(() => ({
     marginRight: 0,
   },
 }));
+
+export const DarkGreenButton = styled(Button)(() => ({
+  backgroundColor: '#477A2F',
+  color: 'white',
+  fontWeight: 400,
+  fontSize: '2rem',
+  width: 300,
+  height: 80,
+  borderRadius: 20,
+  '&:hover': {
+    backgroundColor: '#759367',
+  },
+  '& .Mui-selected': {
+    backgroundColor: '#759367',
+  },
+}));

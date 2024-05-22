@@ -1,1 +1,1 @@
-export const time = '2024-04-10';
+export * from './RegisterUI';
