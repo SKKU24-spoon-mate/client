@@ -1,21 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 
+import { Box } from '@mui/material';
+
+import { RegisterModal } from '@/renderer/containers/Registers/RegisterModal';
 import { ReactComponent as AlarmIcon } from '@assets/svg/Alarm.svg';
 import { dummyRegiUsers } from '@constants';
 import { RegisterArea, RegisteredComponents } from '@containers';
 
-import { AlarmWrapper, InvitationsWrapper, MainWrapper } from './styled';
+import { AlarmWrapper, RegiEntitiesWrapper, MainWrapper } from './styled';
 
 export const RegisterPage = () => {
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <MainWrapper>
       <AlarmWrapper>
         <AlarmIcon style={{ width: '12%' }} />
       </AlarmWrapper>
-      <RegisterArea />
-      <InvitationsWrapper>
+      <Box sx={{ height: '25%' }}>
+        <RegisterArea handleOpen={handleOpen} />
+      </Box>
+      <RegiEntitiesWrapper>
         <RegisteredComponents users={dummyRegiUsers} />
-      </InvitationsWrapper>
+      </RegiEntitiesWrapper>
+      <RegisterModal open={open} handleClose={handleClose} />
     </MainWrapper>
   );
 };
