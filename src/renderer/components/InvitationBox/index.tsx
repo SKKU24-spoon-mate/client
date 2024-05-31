@@ -4,7 +4,7 @@ import { ReactComponent as ApplyIcon } from '@assets/svg/Invitation.svg';
 import { ReactComponent as UserDefaultIcon } from '@assets/svg/UserDefault.svg';
 import { RegisteredComponent } from '@interfaces';
 
-import { ApplyIconWrapper, CommentTypo, InvitationWrapper, LettersWrapper, TagWrapper, TagsWrapper } from './styled';
+import { ApplyIconWrapper, CommentTypo, InviEntityWrapper, LettersWrapper, TagWrapper, TagsWrapper } from './styled';
 
 interface InvitationBoxProps {
   user: RegisteredComponent;
@@ -25,7 +25,7 @@ export const InvitationBox: React.FC<InvitationBoxProps> = ({ user }) => {
     [user.menu],
   );
   return (
-    <InvitationWrapper sx={{ borderRadius: 24 }}>
+    <InviEntityWrapper sx={{ borderRadius: 24 }}>
       <UserDefaultIcon width="15%" />
       <LettersWrapper>
         <CommentTypo>{user.comment}</CommentTypo>
@@ -38,6 +38,6 @@ export const InvitationBox: React.FC<InvitationBoxProps> = ({ user }) => {
       <ApplyIconWrapper>
         <ApplyIcon width="100%" />
       </ApplyIconWrapper>
-    </InvitationWrapper>
+    </InviEntityWrapper>
   );
 };

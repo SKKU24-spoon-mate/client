@@ -1,9 +1,10 @@
 import { styled, Box, Typography } from '@mui/material';
 
-export const InvitationWrapper = styled(Box)(() => ({
+export const InviEntityWrapper = styled(Box)(() => ({
   backgroundColor: '#F0F2DF',
-  width: '100vw',
-  height: '100vh',
+  width: '100%',
+  height: '100%',
+  maxHeight: '180px',
   display: 'flex',
   margin: '2% 5%',
   padding: '2% 5%',

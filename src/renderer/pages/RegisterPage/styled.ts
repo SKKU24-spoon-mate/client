@@ -4,11 +4,14 @@ export const MainWrapper = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
   padding: '3%',
+  width: '100vw',
+  height: '100vh',
 }));
 
 export const AlarmWrapper = styled(Box)(() => ({
   display: 'flex',
   width: '100%',
+  height: '8%',
   justifyContent: 'flex-end',
   '&:hover': {
     path: {
@@ -23,7 +26,7 @@ export const AlarmWrapper = styled(Box)(() => ({
   },
 }));
 
-export const InvitationsWrapper = styled(Box)(() => ({
-  marginTop: '10%',
-  height: '50vh',
+export const RegiEntitiesWrapper = styled(Box)(() => ({
+  // marginTop: '10%',
+  height: '60%',
 }));
