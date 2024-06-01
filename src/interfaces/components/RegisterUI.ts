@@ -1,3 +1,5 @@
+import { Sex } from '@interfaces/apis/login';
+
 export interface RegisteredComponent {
   userId: number;
   menu: Menu;
@@ -13,8 +15,6 @@ export interface RegisteredComponent {
 export type Menu = 'kor' | 'jpn' | 'chn' | 'west' | 'others';
 
 export type Deadline = 5 | 10 | 15 | 20;
-
-export type Sex = 'male' | 'female';
 
 export type RegisteredComponents = Array<RegisteredComponent>;
 

@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 
+import { useSetRecoilState } from 'recoil';
+
 import { Box, Button, TextField, Typography, Modal, Backdrop, Fade } from '@mui/material';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+
+import { UserLogin, UserLoginRes, baseUrl } from '@interfaces';
+import { userStateAtom } from '@states';
 
 interface LoginProps {
   open: boolean;
@@ -14,13 +19,23 @@ const Login: React.FC<LoginProps> = ({ open, onClose }) => {
   const [pw, setPw] = useState('');
   const [error, setError] = useState('');
 
+  const setUserState = useSetRecoilState(userStateAtom);
+
   const navigate = useNavigate();
   //매칭 페이지로 navigate 하는 코드 짜야함
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const response = await axios.post('/login', { id, pw });
-      console.log(response.data.message);
+      const sendData: UserLogin = {
+        id: id,
+        pw: pw,
+      };
+      await axios.post(baseUrl + '/login', sendData).then((res) => {
+        const data: UserLoginRes = res.data;
+        setUserState({ token: data.token, userId: data.userId });
+      });
+
+      navigate(`/spoon-mate`);
     } catch (err: any) {
       if (err.response && err.response.status === 401) {
         setError('Invalid credentials');

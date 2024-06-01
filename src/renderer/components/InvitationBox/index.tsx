@@ -31,7 +31,7 @@ export const InvitationBox: React.FC<InvitationBoxProps> = ({ user }) => {
         <CommentTypo>{user.comment}</CommentTypo>
         <TagsWrapper>
           <TagWrapper>선호 음식: {favoriteFood}</TagWrapper>
-          <TagWrapper>{user.sex == 'male' ? '남자' : '여자'}</TagWrapper>
+          <TagWrapper>{user.sex == 'Male' ? '남자' : '여자'}</TagWrapper>
           {user.isAge && <TagWrapper>{user.age}살</TagWrapper>}
         </TagsWrapper>
       </LettersWrapper>

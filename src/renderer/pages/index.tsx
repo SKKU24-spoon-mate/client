@@ -8,6 +8,7 @@ import { themeSelector } from '@theme/themeSelector';
 
 import { HomePage } from './Login_page';
 // import { ProfilePage } from './Profile_page';
+import { ProtectedRoute } from './ProtectedRouter';
 import { RegisterPage } from './RegisterPage';
 import { AlarmPage } from './RegisterPage/Alarm';
 
@@ -31,9 +32,11 @@ export const AppRoute: React.FC = () => {
     <React.Fragment>
       <Routes>
         <Route path="login" element={<HomePage />} />
-        <Route index path="/spoon-mate" element={<RegisterPage />} />
-        <Route path="/alarms" element={<AlarmPage />} />
-        {/* <Route path="/profile" element={<ProfilePage />} /> */}
+        <Route element={<ProtectedRoute />}>
+          <Route index path="/spoon-mate" element={<RegisterPage />} />
+          <Route path="/alarms" element={<AlarmPage />} />
+          {/* <Route path="/profile" element={<ProfilePage />} /> */}
+        </Route>
         <Route path="*" element={<Navigate to={'/spoon-mate'} />} />
       </Routes>
     </React.Fragment>

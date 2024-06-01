@@ -9,7 +9,7 @@ export const dummyRegiUsers: Array<RegisteredComponent> = [
     isAge: false,
     age: 25,
     comment: "Let's eat candies~",
-    sex: 'male',
+    sex: 'Male',
     distance: 200,
   },
   {
@@ -20,7 +20,7 @@ export const dummyRegiUsers: Array<RegisteredComponent> = [
     isAge: true,
     age: 30,
     comment: 'Sushi lover here!',
-    sex: 'female',
+    sex: 'Female',
     distance: 150,
   },
   {
@@ -31,7 +31,7 @@ export const dummyRegiUsers: Array<RegisteredComponent> = [
     isAge: false,
     age: 22,
     comment: 'Dim sum, anyone?',
-    sex: 'male',
+    sex: 'Male',
     distance: 300,
   },
   {
@@ -42,7 +42,7 @@ export const dummyRegiUsers: Array<RegisteredComponent> = [
     isAge: true,
     age: 28,
     comment: 'Craving for pizza!',
-    sex: 'female',
+    sex: 'Female',
     distance: 100,
   },
   {
@@ -53,7 +53,7 @@ export const dummyRegiUsers: Array<RegisteredComponent> = [
     isAge: false,
     age: 35,
     comment: 'Exploring new cuisines!',
-    sex: 'male',
+    sex: 'Male',
     distance: 250,
   },
   {
@@ -64,7 +64,7 @@ export const dummyRegiUsers: Array<RegisteredComponent> = [
     isAge: true,
     age: 27,
     comment: 'Kimchi forever!',
-    sex: 'female',
+    sex: 'Female',
     distance: 180,
   },
   {
@@ -75,7 +75,7 @@ export const dummyRegiUsers: Array<RegisteredComponent> = [
     isAge: false,
     age: 24,
     comment: 'Ramen time!',
-    sex: 'male',
+    sex: 'Male',
     distance: 220,
   },
   {
@@ -86,7 +86,7 @@ export const dummyRegiUsers: Array<RegisteredComponent> = [
     isAge: true,
     age: 31,
     comment: 'Hot pot party!',
-    sex: 'female',
+    sex: 'Female',
     distance: 130,
   },
   {
@@ -97,7 +97,7 @@ export const dummyRegiUsers: Array<RegisteredComponent> = [
     isAge: false,
     age: 29,
     comment: 'Burger and fries, please!',
-    sex: 'male',
+    sex: 'Male',
     distance: 280,
   },
   {
@@ -108,7 +108,7 @@ export const dummyRegiUsers: Array<RegisteredComponent> = [
     isAge: true,
     age: 26,
     comment: 'Trying out exotic flavors!',
-    sex: 'female',
+    sex: 'Female',
     distance: 190,
   },
 ];

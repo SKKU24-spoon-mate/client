@@ -14,6 +14,9 @@ import {
   MenuItem,
 } from '@mui/material';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
+import { UserRegister, Sex, baseUrl } from '@interfaces';
 
 interface RegisterProps {
   open: boolean;
@@ -33,8 +36,25 @@ const Register: React.FC<RegisterProps> = ({ open, onClose }) => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const response = await axios.post('/register', { id, pw, name, gender, age });
-      console.log(response.data.message);
+      const sendData: UserRegister = {
+        id: id,
+        pw: pw,
+        nickname: name,
+        sex: gender as Sex,
+        age: age as number,
+      };
+
+      await axios.post(baseUrl + '/register', sendData).then((res) => {
+        console.log('회원가입 성공!');
+        console.log(res.data);
+
+        // 값 초기화
+        setId('');
+        setPw('');
+        setName('');
+        setGender('');
+        setAge('');
+      });
       // Handle successful registration (e.g., redirect to login or home page)
     } catch (err: any) {
       setError('An error occurred. Please try again.');
@@ -198,9 +218,9 @@ const Register: React.FC<RegisterProps> = ({ open, onClose }) => {
                   },
                 }}
               >
-                <MenuItem value="male">남성</MenuItem>
-                <MenuItem value="female">여성</MenuItem>
-                <MenuItem value="other">기타</MenuItem>
+                <MenuItem value="Male">남성</MenuItem>
+                <MenuItem value="Female">여성</MenuItem>
+                <MenuItem value="Other">기타</MenuItem>
               </Select>
             </FormControl>
             <Typography variant="body1" sx={{ fontSize: '2rem', mt: 2, mb: 0.5 }}>
