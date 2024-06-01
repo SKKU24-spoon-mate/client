@@ -12,7 +12,7 @@ export const themeSelector = (mode: string): ThemeOptions => ({
         body: {
           width: '100%',
           height: '100%',
-          backgroundColor: '#FAF7D7',
+          backgroundColor: '#FFFEF3',
         },
         img: {
           userSelect: 'none',
