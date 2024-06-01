@@ -6,6 +6,8 @@ import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-d
 
 import { themeSelector } from '@theme/themeSelector';
 
+import ChatPage from './Chat/chat';
+import ChatListPage from './Chat/chatlist';
 import { Home } from './Home';
 
 const AppRenderer: React.FC = () => {
@@ -27,7 +29,7 @@ export const AppRoute: React.FC = () => {
   return (
     <React.Fragment>
       <Routes>
-        <Route index element={<Home />} />
+        <Route index path="/spoon-mate" element={<ChatPage />} />
         <Route path="*" element={<Navigate to={'/spoon-mate'} />} />
       </Routes>
     </React.Fragment>
