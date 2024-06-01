@@ -8,6 +8,7 @@ import { themeSelector } from '@theme/themeSelector';
 
 import ChatPage from './Chat/chat';
 import ChatListPage from './Chat/chatlist';
+import { Home } from './Home';
 import { HomePage } from './Login_page';
 // import { ProfilePage } from './Profile_page';
 import { ProtectedRoute } from './ProtectedRouter';
