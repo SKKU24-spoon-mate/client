@@ -17,4 +17,7 @@ export interface UserLoginRes {
   message: string;
   token: string;
   userId: string;
+  userNickname: string;
+  userAge: Integer;
+  userSex: Sex; // Female 혹은 Male
 }

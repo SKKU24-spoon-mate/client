@@ -8,7 +8,6 @@ import { themeSelector } from '@theme/themeSelector';
 
 import ChatPage from './Chat/chat';
 import ChatListPage from './Chat/chatlist';
-import { Home } from './Home';
 import { HomePage } from './Login_page';
 // import { ProfilePage } from './Profile_page';
 import { ProtectedRoute } from './ProtectedRouter';
@@ -34,7 +33,13 @@ export const AppRoute: React.FC = () => {
   return (
     <React.Fragment>
       <Routes>
-        <Route index path="/spoon-mate" element={<ChatPage />} />
+        <Route path="/login" element={<HomePage />} />
+        <Route element={<ProtectedRoute />}>
+          <Route index path="/spoon-mate" element={<RegisterPage />} />
+          <Route path="/alarms" element={<AlarmPage />} />
+          {/* <Route path="/profile" element={<ProfilePage />} /> */}
+          {/* <Route path="/profile" element={<ChatPage />} /> */}
+        </Route>
         <Route path="*" element={<Navigate to={'/spoon-mate'} />} />
       </Routes>
     </React.Fragment>

@@ -32,7 +32,13 @@ const Login: React.FC<LoginProps> = ({ open, onClose }) => {
       };
       await axios.post(baseUrl + '/login', sendData).then((res) => {
         const data: UserLoginRes = res.data;
-        setUserState({ token: data.token, userId: data.userId });
+        setUserState({
+          token: data.token,
+          userId: data.userId,
+          userAge: data.userAge,
+          userName: data.userNickname,
+          userSex: data.userSex,
+        });
       });
 
       navigate(`/spoon-mate`);

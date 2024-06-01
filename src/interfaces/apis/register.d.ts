@@ -5,5 +5,6 @@ export interface MatchRegister {
   deadline: Deadline;
   isAge: boolean;
   comment: string;
-  userId: number;
+  userId: string; // 등록한 사람의 고유 id
+  userName: string; // 등록한 사람의 nickname
 }

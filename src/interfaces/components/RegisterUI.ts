@@ -1,7 +1,7 @@
 import { Sex } from '@interfaces/apis/login';
 
 export interface RegisteredComponent {
-  userId: number;
+  userId: string;
   menu: Menu;
   userImage: string;
   deadline: Deadline;
@@ -10,6 +10,7 @@ export interface RegisteredComponent {
   comment: string;
   sex: Sex;
   distance: number | null;
+  userName: string;
 }
 
 export type Menu = 'kor' | 'jpn' | 'chn' | 'west' | 'others';

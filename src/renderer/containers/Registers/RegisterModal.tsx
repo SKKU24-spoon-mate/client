@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import { FormControl, FormControlLabel, Modal, Radio, RadioGroup, TextField } from '@mui/material';
 import axios from 'axios';
@@ -14,7 +14,7 @@ import { ReactComponent as KoreanIconBox } from '@assets/svg/KoreanFood.svg';
 import { ReactComponent as WesternIconBox } from '@assets/svg/WesternFood.svg';
 import { CheckedIcon, LogoImage } from '@components';
 import { Deadline, MatchRegister, Menu, RegisteredComponents, baseUrl } from '@interfaces';
-import { registeredEntitiesAtom } from '@states';
+import { registeredEntitiesAtom, userStateAtom } from '@states';
 
 import {
   FormControlLabelCusto,
@@ -49,6 +49,7 @@ export const RegisterModal: React.FC<RegiModalProps> = ({ open, handleClose }) =
   const [isAgeShow, setIsAgeShow] = useState(0);
   const [comment, setComment] = useState('');
   const setRegisteredEntities = useSetRecoilState(registeredEntitiesAtom);
+  const userState = useRecoilValue(userStateAtom);
 
   const handleFoodChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFood((event.target as HTMLInputElement).value);
@@ -72,17 +73,18 @@ export const RegisterModal: React.FC<RegiModalProps> = ({ open, handleClose }) =
         deadline: _.toNumber(deadline) as Deadline,
         isAge: isAgeShow === 1 ? true : false,
         comment: comment,
-        userId: 0,
+        userId: userState.userId,
+        userName: userState.userName,
       };
 
-      // // 3. api 보내기 :: 성공시 모달 닫기
-      // axios.post(baseUrl, submitData).then((res) => {
-      //   const updatedRegis = res.data as RegisteredComponents;
-      //   setRegisteredEntities(updatedRegis);
-      //   handleClose();
-      // });
       console.log('menus!!', submitData);
-      handleClose();
+      // // 3. api 보내기 :: 성공시 모달 닫기
+      axios.post(baseUrl + '/match/register', submitData).then((res) => {
+        const updatedRegis = res.data as RegisteredComponents;
+        setRegisteredEntities(updatedRegis);
+        handleClose();
+      });
+      // handleClose();
 
       // 4. 모달 내용 초기화 (성공 여부와 관계없이)
       setFood('kor');
@@ -90,7 +92,7 @@ export const RegisterModal: React.FC<RegiModalProps> = ({ open, handleClose }) =
       setIsAgeShow(0);
       setComment('');
     },
-    [comment, deadline, food, handleClose, isAgeShow, setRegisteredEntities],
+    [comment, deadline, food, handleClose, isAgeShow, setRegisteredEntities, userState.userId, userState.userName],
   );
   return (
     <>
