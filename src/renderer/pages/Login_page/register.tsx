@@ -91,7 +91,7 @@ const Register: React.FC<RegisterProps> = ({ open, onClose }) => {
                 {error}
               </Typography>
             )}
-            <Typography variant="body1" sx={{ fontSize: '1.5rem', mb: 0.5 }}>
+            <Typography variant="body1" sx={{ fontSize: '2rem', mb: 0.5 }}>
               *아이디
             </Typography>
             <TextField
@@ -109,9 +109,17 @@ const Register: React.FC<RegisterProps> = ({ open, onClose }) => {
                 '& .MuiInputBase-root': {
                   height: '5vh',
                 },
+                padding: 0,
+                width: '100%',
+                '& .MuiInputBase-input.MuiOutlinedInput-input': {
+                  padding: '1%',
+                  fontWeight: 700,
+                  fontSize: '1.8rem',
+                  textAlign: 'justify',
+                },
               }}
             />
-            <Typography variant="body1" sx={{ fontSize: '1.5rem', mt: 2, mb: 0.5 }}>
+            <Typography variant="body1" sx={{ fontSize: '2rem', mt: 2, mb: 0.5 }}>
               *비밀번호
             </Typography>
             <TextField
@@ -129,9 +137,17 @@ const Register: React.FC<RegisterProps> = ({ open, onClose }) => {
                 '& .MuiInputBase-root': {
                   height: '5vh',
                 },
+                padding: 0,
+                width: '100%',
+                '& .MuiInputBase-input.MuiOutlinedInput-input': {
+                  padding: '1%',
+                  fontWeight: 700,
+                  fontSize: '1.8rem',
+                  textAlign: 'justify',
+                },
               }}
             />
-            <Typography variant="body1" sx={{ fontSize: '1.5rem', mt: 2, mb: 0.5 }}>
+            <Typography variant="body1" sx={{ fontSize: '2rem', mt: 2, mb: 0.5 }}>
               *이름
             </Typography>
             <TextField
@@ -147,9 +163,17 @@ const Register: React.FC<RegisterProps> = ({ open, onClose }) => {
                 '& .MuiInputBase-root': {
                   height: '5vh',
                 },
+                padding: 0,
+                width: '100%',
+                '& .MuiInputBase-input.MuiOutlinedInput-input': {
+                  padding: '1%',
+                  fontWeight: 700,
+                  fontSize: '1.8rem',
+                  textAlign: 'justify',
+                },
               }}
             />
-            <Typography variant="body1" sx={{ fontSize: '1.5rem', mt: 2, mb: 0.5 }}>
+            <Typography variant="body1" sx={{ fontSize: '2rem', mt: 2, mb: 0.5 }}>
               *성별
             </Typography>
             <FormControl fullWidth required margin="normal">
@@ -164,6 +188,14 @@ const Register: React.FC<RegisterProps> = ({ open, onClose }) => {
                   '& .MuiInputBase-root': {
                     height: '5vh',
                   },
+                  padding: 0,
+                  width: '100%',
+                  '& .MuiInputBase-input.MuiOutlinedInput-input': {
+                    padding: '1%',
+                    fontWeight: 700,
+                    fontSize: '1.8rem',
+                    textAlign: 'justify',
+                  },
                 }}
               >
                 <MenuItem value="male">남성</MenuItem>
@@ -171,7 +203,7 @@ const Register: React.FC<RegisterProps> = ({ open, onClose }) => {
                 <MenuItem value="other">기타</MenuItem>
               </Select>
             </FormControl>
-            <Typography variant="body1" sx={{ fontSize: '1.5rem', mt: 2, mb: 0.5 }}>
+            <Typography variant="body1" sx={{ fontSize: '2rem', mt: 2, mb: 0.5 }}>
               *나이(만)
             </Typography>
             <FormControl fullWidth required margin="normal">
@@ -201,7 +233,7 @@ const Register: React.FC<RegisterProps> = ({ open, onClose }) => {
               variant="contained"
               sx={{ width: '100%', height: '10%', mt: 7, backgroundColor: '#477A2F' }}
             >
-              <Typography variant="body1" sx={{ fontSize: '1.5rem', mt: 2, mb: 0.5 }}>
+              <Typography variant="body1" sx={{ fontSize: '2rem', mt: 2, mb: 0.5 }}>
                 회원가입
               </Typography>
             </Button>
@@ -213,7 +245,7 @@ const Register: React.FC<RegisterProps> = ({ open, onClose }) => {
             sx={{ width: '100%', height: '7%', mt: 7 }}
             onClick={onClose}
           >
-            <Typography variant="body1" sx={{ fontSize: '1.5rem', mt: 2, mb: 0.5 }}>
+            <Typography variant="body1" sx={{ fontSize: '2rem', mt: 2, mb: 0.5 }}>
               취소
             </Typography>
           </Button>

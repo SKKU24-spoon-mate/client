@@ -95,6 +95,14 @@ const Login: React.FC<LoginProps> = ({ open, onClose }) => {
                 '& .MuiInputBase-root': {
                   height: '5vh',
                 },
+                padding: 0,
+                width: '100%',
+                '& .MuiInputBase-input.MuiOutlinedInput-input': {
+                  padding: '1%',
+                  fontWeight: 700,
+                  fontSize: '1.8rem',
+                  textAlign: 'justify',
+                },
               }}
             />
             <Typography variant="body1" sx={{ fontSize: '2rem', mt: 3, mb: 0.5 }}>
@@ -114,6 +122,14 @@ const Login: React.FC<LoginProps> = ({ open, onClose }) => {
               sx={{
                 '& .MuiInputBase-root': {
                   height: '5vh',
+                },
+                padding: 0,
+                width: '100%',
+                '& .MuiInputBase-input.MuiOutlinedInput-input': {
+                  padding: '1%',
+                  fontWeight: 700,
+                  fontSize: '1.8rem',
+                  textAlign: 'justify',
                 },
               }}
             />
