@@ -62,12 +62,10 @@ module.exports = {
     new webpack.ProvidePlugin({
       process: 'process/browser',
     }),
-    // new Dotenv({
-    //   defaults: './.env',
-    //   // path: `./.env.${process.env.STAGE}`,
-    //   // safe: './.env.sample',
-    //   // systemvars: true,
-    // }),
+    new Dotenv({
+      defaults: './.env',
+      systemvars: true,
+    }),
     new CleanWebpackPlugin(),
   ],
   performance: {
