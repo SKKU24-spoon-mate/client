@@ -7,6 +7,7 @@ import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-d
 import { themeSelector } from '@theme/themeSelector';
 
 import { RegisterPage } from './RegisterPage';
+import { AlarmPage } from './RegisterPage/Alarm';
 
 const AppRenderer: React.FC = () => {
   const themeMode = useMemo(() => createTheme(themeSelector('light')), []);
@@ -28,6 +29,7 @@ export const AppRoute: React.FC = () => {
     <React.Fragment>
       <Routes>
         <Route index element={<RegisterPage />} />
+        <Route path="/alarms" element={<AlarmPage />} />
         <Route path="*" element={<Navigate to={'/spoon-mate'} />} />
       </Routes>
     </React.Fragment>
