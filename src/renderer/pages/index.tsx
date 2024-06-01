@@ -6,6 +6,8 @@ import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-d
 
 import { themeSelector } from '@theme/themeSelector';
 
+import { HomePage } from './Login_page';
+// import { ProfilePage } from './Profile_page';
 import { RegisterPage } from './RegisterPage';
 import { AlarmPage } from './RegisterPage/Alarm';
 
@@ -28,8 +30,10 @@ export const AppRoute: React.FC = () => {
   return (
     <React.Fragment>
       <Routes>
-        <Route index element={<RegisterPage />} />
+        <Route path="login" element={<HomePage />} />
+        <Route index path="/spoon-mate" element={<RegisterPage />} />
         <Route path="/alarms" element={<AlarmPage />} />
+        {/* <Route path="/profile" element={<ProfilePage />} /> */}
         <Route path="*" element={<Navigate to={'/spoon-mate'} />} />
       </Routes>
     </React.Fragment>
