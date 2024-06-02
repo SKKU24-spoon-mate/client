@@ -48,7 +48,7 @@ export const AlarmPage = () => {
   }, [userState.userId]);
 
   useEffect(() => {
-    // getAlarmsApi();
+    getAlarmsApi();
   }, []);
 
   const navigate = useNavigate();

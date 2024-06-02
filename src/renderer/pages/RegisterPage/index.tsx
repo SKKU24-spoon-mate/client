@@ -44,9 +44,10 @@ export const RegisterPage = () => {
         console.log('userState: ' + userState.userId);
         console.log('resData: ' + resData);
         const myData = _.find(resData, { userId: userState.userId }) as RegisteredComponent;
-        console.log('myData: ' + myData);
         setMyRegi(myData);
-        setRegiComponents(resData);
+
+        const othersData = _.filter(resData, (item) => item.userId !== userState.userId);
+        setRegiComponents(othersData);
       }
     });
   }, [setRegiComponents, userState.userId]);

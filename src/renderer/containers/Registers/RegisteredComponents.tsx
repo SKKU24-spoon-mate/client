@@ -12,6 +12,6 @@ interface RegisteredComponentsProps {
 }
 export const RegisteredComponents: React.FC<RegisteredComponentsProps> = ({ users }) => (
   <InvitationsWrapper>
-    {isArray(users) && users.map((user, idx) => <InvitationBox user={user} key={idx} />)}
+    {isArray(users) && users.map((user, idx) => <InvitationBox counterUser={user} key={idx} />)}
   </InvitationsWrapper>
 );
