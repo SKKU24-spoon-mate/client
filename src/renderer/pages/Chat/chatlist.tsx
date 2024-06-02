@@ -9,6 +9,7 @@ import { ReactComponent as ChatHeader } from '@assets/svg/ChatHeader.svg';
 import { ReactComponent as ProfileHeader } from '@assets/svg/ProfileHeader.svg';
 import { ReactComponent as RegisterHeader } from '@assets/svg/RegisterHeader.svg';
 import { ReactComponent as UserDefault } from '@assets/svg/UserDefault.svg';
+import { Footer } from '@containers';
 import { baseUrl } from '@interfaces';
 
 import { HeaderBox } from './chatliststyled';
@@ -140,40 +141,7 @@ const ChatListPage: React.FC = () => {
           );
         })}
       </ListBox>
-      <Box
-        sx={{
-          display: 'flex',
-          height: '10%',
-          backgroundColor: '#333',
-          borderRadius: '0 0 10px 10px',
-          overflow: 'hidden',
-        }}
-      >
-        <NavItem
-        //onClick={() => (window.location.href = '/friendlistpage?user=' + encodeURIComponent(user || ''))}
-        >
-          <IconWrapper>
-            <RegisterHeader style={{ width: '50%', height: '50%' }} />
-            <Box sx={{ fontSize: '1.5rem', color: '#000000' }}>지금 밥약!</Box>
-          </IconWrapper>
-        </NavItem>
-        <NavItem
-        //onClick={() => (window.location.href = '/chatlistpage?user=' + encodeURIComponent(user || ''))}
-        >
-          <IconWrapper>
-            <ChatHeader style={{ width: '50%', height: '50%' }} />
-            <Box sx={{ fontSize: '1.5rem', color: '#000000' }}>채팅</Box>
-          </IconWrapper>
-        </NavItem>
-        <NavItem
-        //onClick={() => (window.location.href = '/profilepage?user=' + encodeURIComponent(user || ''))}
-        >
-          <IconWrapper>
-            <ProfileHeader style={{ width: '50%', height: '50%' }} />
-            <Box sx={{ fontSize: '1.5rem', color: '#000000' }}>나의 프로필</Box>
-          </IconWrapper>
-        </NavItem>
-      </Box>
+      <Footer />
     </Box>
   );
 };

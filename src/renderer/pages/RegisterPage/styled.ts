@@ -3,6 +3,7 @@ import { styled, Box, Button, Typography } from '@mui/material';
 export const MainWrapper = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
+  justifyContent: 'space-between',
   // padding: '3%',
   width: '100vw',
   height: '100vh',

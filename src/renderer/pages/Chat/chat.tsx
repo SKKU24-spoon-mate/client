@@ -11,6 +11,7 @@ import { ReactComponent as ChatHeader } from '@assets/svg/ChatHeader.svg';
 import { ReactComponent as ProfileHeader } from '@assets/svg/ProfileHeader.svg';
 import { ReactComponent as RegisterHeader } from '@assets/svg/RegisterHeader.svg';
 import { ReactComponent as UserDefault } from '@assets/svg/UserDefault.svg';
+import { Footer } from '@containers';
 import { baseUrl } from '@interfaces';
 
 import { NavItem, IconWrapper } from './chatliststyled';
@@ -242,32 +243,7 @@ const ChatPage: React.FC = () => {
           Send
         </button>
       </form>
-      <Box sx={{ display: 'flex', justifyContent: 'space-around', backgroundColor: '#DCE4D7', padding: '1rem 0' }}>
-        <NavItem sx={{ flex: 1 }}>
-          <IconWrapper
-            sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
-          >
-            <RegisterHeader style={{ width: '50%', height: '50%' }} />
-            <Box sx={{ fontSize: '1.5rem', color: '#000' }}>지금 밥약!</Box>
-          </IconWrapper>
-        </NavItem>
-        <NavItem sx={{ flex: 1 }}>
-          <IconWrapper
-            sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
-          >
-            <ChatHeader style={{ width: '50%', height: '50%' }} />
-            <Box sx={{ fontSize: '1.5rem', color: '#000' }}>채팅</Box>
-          </IconWrapper>
-        </NavItem>
-        <NavItem sx={{ flex: 1 }}>
-          <IconWrapper
-            sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}
-          >
-            <ProfileHeader style={{ width: '50%', height: '50%' }} />
-            <Box sx={{ fontSize: '1.5rem', color: '#000' }}>나의 프로필</Box>
-          </IconWrapper>
-        </NavItem>
-      </Box>
+      <Footer />
     </Box>
   );
 };

@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { RegisterModal } from '@/renderer/containers/Registers/RegisterModal';
 import { ReactComponent as AlarmIcon } from '@assets/svg/Alarm.svg';
 import { Footer, RegisterArea, RegisteredComponents } from '@containers';
-import { RegisteredComponents as RegiComs, baseUrl } from '@interfaces';
+import { RegisteredComponents as RegiComs, RegisteredComponent, baseUrl } from '@interfaces';
 import { registeredEntitiesAtom, userStateAtom } from '@states';
 
 import { AlarmWrapper, RegiEntitiesWrapper, MainWrapper } from './styled';
@@ -24,30 +24,50 @@ export const RegisterPage = () => {
   const userState = useRecoilValue(userStateAtom);
   const [regiComponents, setRegiComponents] = useRecoilState(registeredEntitiesAtom);
 
+  const [myRegi, setMyRegi] = useState<RegisteredComponent>({
+    userId: '',
+    age: 0,
+    comment: '',
+    deadline: 20,
+    distance: 200,
+    isAge: false,
+    menu: 'kor',
+    sex: 'Male',
+    userImage: '',
+    userName: '',
+  });
+
   const getList = useCallback(async () => {
     await axios.get(baseUrl + `/match/list`).then((res) => {
       const resData: RegiComs = res.data;
-      setRegiComponents(resData);
+      if (!_.isUndefined(resData)) {
+        console.log('userState: ' + userState.userId);
+        console.log('resData: ' + resData);
+        const myData = _.find(resData, { userId: userState.userId }) as RegisteredComponent;
+        console.log('myData: ' + myData);
+        setMyRegi(myData);
+        setRegiComponents(resData);
+      }
     });
-  }, [setRegiComponents]);
+  }, [setRegiComponents, userState.userId]);
 
   React.useEffect(() => {
     getList();
-  }, [getList]);
+  }, []);
 
   console.log(regiComponents);
 
   return (
     <MainWrapper>
-      <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', padding: '3%' }}>
+      <Box sx={{ padding: '3%', height: '100%' }}>
         <AlarmWrapper>
           <AlarmIcon onClick={() => navigate(`/alarms`)} style={{ width: '12%' }} />
         </AlarmWrapper>
-        <Box sx={{ height: '32%' }}>
-          <RegisterArea handleOpen={handleOpen} />
+        <Box sx={{ height: '30%' }}>
+          <RegisterArea myRegi={myRegi as RegisteredComponent} handleOpen={handleOpen} />
         </Box>
         <RegiEntitiesWrapper>
-          {_.isArray(regiComponents) ? (
+          {!_.isUndefined(regiComponents) && _.isArray(regiComponents) ? (
             <RegisteredComponents users={regiComponents} />
           ) : (
             <Typography

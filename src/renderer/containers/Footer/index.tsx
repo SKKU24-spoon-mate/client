@@ -23,7 +23,7 @@ export const Footer = () => {
           </MenuIconWrapper>
         </NavItem>
         <NavItem sx={{ flex: 1 }}>
-          <MenuIconWrapper onClick={() => navigate(`/chat`)}>
+          <MenuIconWrapper onClick={() => navigate(`/chatlist`)}>
             <ChatHeader style={{ width: '50%', height: '50%' }} />
             <MenuTypo>채팅</MenuTypo>
           </MenuIconWrapper>
