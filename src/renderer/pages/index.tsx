@@ -6,7 +6,15 @@ import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-d
 
 import { themeSelector } from '@theme/themeSelector';
 
-import { Home } from './Home';
+import ChatPage from './Chat/chat';
+import ChatListPage from './Chat/chatlist';
+import { HomePage } from './Login_page';
+import { ProfilePage } from './Profile_page';
+import MyProfile from './Profile_page/myprofile';
+import UserProfile from './Profile_page/user_profile';
+import { ProtectedRoute } from './ProtectedRouter';
+import { RegisterPage } from './RegisterPage';
+import { AlarmPage } from './RegisterPage/Alarm';
 
 const AppRenderer: React.FC = () => {
   const themeMode = useMemo(() => createTheme(themeSelector('light')), []);
@@ -27,7 +35,15 @@ export const AppRoute: React.FC = () => {
   return (
     <React.Fragment>
       <Routes>
-        <Route index element={<Home />} />
+        <Route path="/login" element={<HomePage />} />
+        <Route element={<ProtectedRoute />}>
+          <Route index path="/spoon-mate" element={<RegisterPage />} />
+          <Route path="/alarms" element={<AlarmPage />} />
+          <Route path="/profile" element={<UserProfile />} />
+          <Route path="/myprofile" element={<MyProfile />} />
+          <Route index path="/chatlist" element={<ChatListPage />} />
+          <Route index path="/chat" element={<ChatPage />} />
+        </Route>
         <Route path="*" element={<Navigate to={'/spoon-mate'} />} />
       </Routes>
     </React.Fragment>

@@ -15,8 +15,10 @@ export const Home: React.FC = () => {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
+          fontWeight: 100,
         }}
       >
+        Hello!
         <HeaderM />
       </Box>
     ),
