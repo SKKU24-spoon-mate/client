@@ -90,7 +90,7 @@ const ChatListPage: React.FC = () => {
 
   const navigate = useNavigate();
   const handleChatClick = (to: string) => {
-    navigate('/chat', { state: { user1, to } });
+    navigate('/chat', { state: { to } });
   };
 
   const handleChatClick1 = (to: string) => {
