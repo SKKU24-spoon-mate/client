@@ -20,4 +20,5 @@ export interface UserLoginRes {
   userNickname: string;
   userAge: Integer;
   userSex: Sex; // Female 혹은 Male
+  _id: string;
 }

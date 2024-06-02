@@ -38,6 +38,7 @@ const Login: React.FC<LoginProps> = ({ open, onClose }) => {
           userAge: data.userAge,
           userName: data.userNickname,
           userSex: data.userSex,
+          objectId: data._id,
         });
       });
 

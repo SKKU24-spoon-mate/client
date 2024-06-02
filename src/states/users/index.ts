@@ -8,9 +8,10 @@ export interface userState {
   userName: string;
   userAge: number;
   userSex: Sex; // Female 혹은 Male
+  objectId: string;
 }
 
 export const userStateAtom = atom<userState>({
   key: 'userStateAtom',
-  default: { token: '', userId: '', userName: '', userAge: 0, userSex: 'Male' },
+  default: { token: '', userId: '', userName: '', userAge: 0, userSex: 'Male', objectId: '' },
 });
