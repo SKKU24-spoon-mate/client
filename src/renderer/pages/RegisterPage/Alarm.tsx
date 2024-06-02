@@ -8,6 +8,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 import { ReactComponent as UserIcon } from '@assets/svg/UserDefault.svg';
+import { Footer } from '@containers';
 import { AlarmComponents, ConfirmRes, baseUrl } from '@interfaces';
 import { userStateAtom } from '@states';
 
@@ -47,7 +48,7 @@ export const AlarmPage = () => {
   }, [userState.userId]);
 
   useEffect(() => {
-    getAlarmsApi();
+    // getAlarmsApi();
   }, []);
 
   const navigate = useNavigate();
@@ -60,22 +61,33 @@ export const AlarmPage = () => {
     await axios.post(baseUrl, data);
   };
   return (
-    <Box sx={{ width: '100vw', height: '100vh' }}>
-      <AlarmTitleTypo>
-        <SvgIcon onClick={() => navigate(-1)} component={ArrowBackIos} sx={{ fontSize: '40px' }} />
-        알림
-        <Box></Box>
-      </AlarmTitleTypo>
-      <Box sx={{ width: '100%', borderBottom: '1px solid green' }}></Box>
-      <Box sx={{ padding: '2%' }}>
-        {alarms.map((alarm, idx) =>
-          alarm.type === 'apply' ? (
-            <AlarmEntity key={`alarm-${idx}`} name={alarm.appliedUserName} handleConfirm={handleConfirm} />
-          ) : (
-            <></>
-          ),
-        )}
+    <Box
+      sx={{
+        width: '100vw',
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+      }}
+    >
+      <Box>
+        <AlarmTitleTypo>
+          <SvgIcon onClick={() => navigate(-1)} component={ArrowBackIos} sx={{ fontSize: '40px' }} />
+          알림
+          <Box></Box>
+        </AlarmTitleTypo>
+        <Box sx={{ width: '100%', borderBottom: '1px solid green' }}></Box>
+        <Box sx={{ padding: '2%' }}>
+          {alarms.map((alarm, idx) =>
+            alarm.type === 'apply' ? (
+              <AlarmEntity key={`alarm-${idx}`} name={alarm.appliedUserName} handleConfirm={handleConfirm} />
+            ) : (
+              <></>
+            ),
+          )}
+        </Box>
       </Box>
+      <Footer />
     </Box>
   );
 };
