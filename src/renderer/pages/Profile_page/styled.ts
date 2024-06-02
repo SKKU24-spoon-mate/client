@@ -12,7 +12,7 @@ export const ProfileContainer = styled(Box)(({ theme }) => ({
 export const ReviewBox = styled(Box)(({ theme }) => ({
   backgroundColor: '#DCE4D7',
   width: '100vw',
-  height: '12vh',
+  height: '30vh',
   textAlign: 'center',
   mt: 5,
 }));
