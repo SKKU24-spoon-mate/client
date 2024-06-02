@@ -54,6 +54,8 @@ const Register: React.FC<RegisterProps> = ({ open, onClose }) => {
         setName('');
         setGender('');
         setAge('');
+
+        onClose();
       });
       // Handle successful registration (e.g., redirect to login or home page)
     } catch (err: any) {
@@ -218,8 +220,8 @@ const Register: React.FC<RegisterProps> = ({ open, onClose }) => {
                   },
                 }}
               >
-                <MenuItem value="Male">남성</MenuItem>
-                <MenuItem value="Female">여성</MenuItem>
+                <MenuItem value="male">남성</MenuItem>
+                <MenuItem value="female">여성</MenuItem>
                 <MenuItem value="Other">기타</MenuItem>
               </Select>
             </FormControl>
