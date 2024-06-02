@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+
+import { useRecoilValue } from 'recoil';
 
 import { ArrowBackIos } from '@mui/icons-material';
 import { Box, Button, Typography, SvgIcon } from '@mui/material';
@@ -6,7 +8,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 import { ReactComponent as UserIcon } from '@assets/svg/UserDefault.svg';
-import { AlarmComponents, baseUrl } from '@interfaces';
+import { AlarmComponents, ConfirmRes, baseUrl } from '@interfaces';
+import { userStateAtom } from '@states';
 
 import { AlarmConfirmButton, AlarmEntityWrapper, AlarmNotConfirmButton, AlarmTitleTypo } from './styled';
 
@@ -24,11 +27,28 @@ const AlarmEntity = (props: { name: string; handleConfirm: (isConfirm: boolean) 
 );
 
 export const AlarmPage = () => {
-  const [alarms, setAlarms] = useState<AlarmComponents>([
-    { appliedUserId: 0, appliedUserName: '율전_날다람쥐', type: 'apply' },
-    { appliedUserId: 1, appliedUserName: '율전2', type: 'apply' },
-    { appliedUserId: 2, appliedUserName: '율전3', type: 'apply' },
-  ]);
+  const [alarms, setAlarms] = useState<AlarmComponents>([]);
+
+  const userState = useRecoilValue(userStateAtom);
+
+  const getAlarmsApi = useCallback(() => {
+    axios.get(baseUrl + `/confirm/user/${userState.userId}`).then((res) => {
+      const data: Array<ConfirmRes> = res.data;
+      const processedData: AlarmComponents = data.map((datum) => {
+        return {
+          appliedUserId: datum.reqUserId,
+          appliedUserName: datum.reqUserNickname,
+          appliedUserImage: datum.reqUserImage,
+          type: 'apply',
+        };
+      });
+      setAlarms(processedData);
+    });
+  }, [userState.userId]);
+
+  useEffect(() => {
+    getAlarmsApi();
+  }, []);
 
   const navigate = useNavigate();
 

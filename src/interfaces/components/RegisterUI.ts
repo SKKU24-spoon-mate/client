@@ -22,7 +22,8 @@ export type RegisteredComponents = Array<RegisteredComponent>;
 //////////
 export interface AlarmComponent {
   appliedUserName: string;
-  appliedUserId: number;
+  appliedUserId: string;
+  appliedUserImage: string;
   type: string; // apply or admin
 }
 
