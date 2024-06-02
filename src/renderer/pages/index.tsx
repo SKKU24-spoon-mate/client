@@ -35,13 +35,8 @@ export const AppRoute: React.FC = () => {
   return (
     <React.Fragment>
       <Routes>
-        <Route path="/login" element={<HomePage />} />
-        <Route element={<ProtectedRoute />}>
-          <Route index path="/spoon-mate" element={<RegisterPage />} />
-          <Route path="/alarms" element={<AlarmPage />} />
-          <Route path="/profile" element={<MyProfile />} />
-          {/* <Route path="/profile" element={<ChatPage />} /> */}
-        </Route>
+        <Route index path="/spoon-mate" element={<ChatListPage />} />
+        <Route index path="/chat" element={<ChatPage />} />
         <Route path="*" element={<Navigate to={'/spoon-mate'} />} />
       </Routes>
     </React.Fragment>

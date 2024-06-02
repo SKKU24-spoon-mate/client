@@ -12,7 +12,7 @@ export const HeaderBox = styled(Box)(() => ({
 }));
 
 export const ListBox = styled(Box)(() => ({
-  borderTopLeftRadius: '5px',
+  borderTopLeftRadius: '1rem',
   backgroundColor: '#FFFEF3',
   height: '80vh',
   overflow: 'auto',
@@ -23,8 +23,9 @@ export const ChatBox = styled(Box)(() => ({
   display: 'flex',
   alignItems: 'center',
   padding: '1rem',
-  borderBottom: '1px solid #ccc',
+  borderBottom: '0.2rem solid #CDDCCA',
   cursor: 'pointer',
+  height: '10rem',
 }));
 
 export const IconWrapper = styled(Box)(() => ({
