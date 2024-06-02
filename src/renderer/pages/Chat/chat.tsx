@@ -1,20 +1,17 @@
-import { Console } from 'console';
-
 import React, { useEffect, useRef, useState } from 'react';
+
+import { useRecoilValue } from 'recoil';
 
 import { Box } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
-import { ReactComponent as ChatHeader } from '@assets/svg/ChatHeader.svg';
-import { ReactComponent as ProfileHeader } from '@assets/svg/ProfileHeader.svg';
-import { ReactComponent as RegisterHeader } from '@assets/svg/RegisterHeader.svg';
 import { ReactComponent as UserDefault } from '@assets/svg/UserDefault.svg';
 import { Footer } from '@containers';
 import { baseUrl } from '@interfaces';
+import { userStateAtom } from '@states';
 
-import { NavItem, IconWrapper } from './chatliststyled';
 import { HeaderBox, ListBox, FromContent, ToContent } from './chatstyled';
 
 interface MessageFormat {
@@ -25,8 +22,10 @@ interface MessageFormat {
 }
 
 const ChatPage: React.FC = () => {
+  const userState = useRecoilValue(userStateAtom);
+  const user1 = userState.userName;
   const location = useLocation();
-  const { user1, to } = location.state;
+  const { to } = location.state;
   const user2 = to;
   const navigate = useNavigate();
   const [messages, setMessages] = useState<MessageFormat[]>([]);
