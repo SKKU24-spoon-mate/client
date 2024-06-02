@@ -5,6 +5,7 @@ import { useRecoilValue } from 'recoil';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Box, Typography, Avatar, IconButton, Button, SvgIcon } from '@mui/material';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
 import { ReactComponent as UserDefaultIcon } from '@assets/svg/UserDefault.svg';
 import { baseUrl } from '@interfaces';
@@ -43,7 +44,7 @@ interface UserProfileData {
 }
 const fetchMyProfile = async (userId: string) => {
   try {
-    const response = await axios.get(baseUrl + '/profile/${userId}');
+    const response = await axios.get(baseUrl + `/profile/${userId}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching user profile:', error);
@@ -53,6 +54,9 @@ const fetchMyProfile = async (userId: string) => {
 
 export const MyProfile: React.FC = () => {
   const userState = useRecoilValue(userStateAtom);
+  const location = useLocation();
+  const userId = location.state.userId;
+  // console.log('location', location.state);
 
   const [profileData, setProfileData] = useState<UserProfileData | null>(null);
   const [openEditModal, setOpenEditModal] = useState(false);
@@ -60,7 +64,7 @@ export const MyProfile: React.FC = () => {
   useEffect(() => {
     const loadProfile = async () => {
       try {
-        const data = await fetchMyProfile(userState.userId!);
+        const data = await fetchMyProfile(userId);
         setProfileData(data);
       } catch (error) {
         console.error('Failed to load profile:', error);
@@ -68,7 +72,7 @@ export const MyProfile: React.FC = () => {
     };
 
     loadProfile();
-  }, [userState.userId]);
+  }, [userId]);
 
   const handleOpenEditModal = () => {
     setOpenEditModal(true);
