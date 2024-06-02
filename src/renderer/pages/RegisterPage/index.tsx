@@ -1,16 +1,17 @@
 import React, { useCallback, useState } from 'react';
 
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import axios from 'axios';
+import _ from 'lodash';
 import { useNavigate } from 'react-router-dom';
 
 import { RegisterModal } from '@/renderer/containers/Registers/RegisterModal';
 import { ReactComponent as AlarmIcon } from '@assets/svg/Alarm.svg';
 import { RegisterArea, RegisteredComponents } from '@containers';
 import { RegisteredComponents as RegiComs, baseUrl } from '@interfaces';
-import { userStateAtom } from '@states';
+import { registeredEntitiesAtom, userStateAtom } from '@states';
 
 import { AlarmWrapper, RegiEntitiesWrapper, MainWrapper } from './styled';
 
@@ -21,16 +22,20 @@ export const RegisterPage = () => {
   const handleClose = () => setOpen(false);
 
   const userState = useRecoilValue(userStateAtom);
-  const [regiComponents, setRegiComponents] = useState<RegiComs>([]);
+  const [regiComponents, setRegiComponents] = useRecoilState(registeredEntitiesAtom);
 
   const getList = useCallback(async () => {
-    const resData: RegiComs = await axios.get(baseUrl + `/match/list?userId=${userState.userId}`);
-    setRegiComponents(resData);
-  }, [userState.userId]);
+    await axios.get(baseUrl + `/match/list`).then((res) => {
+      const resData: RegiComs = res.data;
+      setRegiComponents(resData);
+    });
+  }, [setRegiComponents]);
 
   React.useEffect(() => {
     getList();
   }, [getList]);
+
+  console.log(regiComponents);
 
   return (
     <MainWrapper>
@@ -41,7 +46,22 @@ export const RegisterPage = () => {
         <RegisterArea handleOpen={handleOpen} />
       </Box>
       <RegiEntitiesWrapper>
-        <RegisteredComponents users={regiComponents} />
+        {_.isArray(regiComponents) ? (
+          <RegisteredComponents users={regiComponents} />
+        ) : (
+          <Typography
+            sx={{
+              display: ' flex',
+              justifyContent: 'center',
+              height: '40%',
+              alignItems: 'center',
+              fontSize: '2rem',
+              color: '#9a9a9a',
+            }}
+          >
+            등록된 게시글이 없습니다.
+          </Typography>
+        )}
       </RegiEntitiesWrapper>
       <RegisterModal open={open} handleClose={handleClose} />
     </MainWrapper>

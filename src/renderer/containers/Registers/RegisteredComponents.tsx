@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { isArray } from 'lodash';
+
 import { InvitationBox } from '@components';
 import { RegisteredComponent } from '@interfaces';
 
@@ -10,8 +12,6 @@ interface RegisteredComponentsProps {
 }
 export const RegisteredComponents: React.FC<RegisteredComponentsProps> = ({ users }) => (
   <InvitationsWrapper>
-    {users.map((user, idx) => (
-      <InvitationBox user={user} key={idx} />
-    ))}
+    {isArray(users) && users.map((user, idx) => <InvitationBox user={user} key={idx} />)}
   </InvitationsWrapper>
 );

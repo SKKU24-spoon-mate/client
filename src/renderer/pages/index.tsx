@@ -38,7 +38,7 @@ export const AppRoute: React.FC = () => {
           <Route index path="/spoon-mate" element={<RegisterPage />} />
           <Route path="/alarms" element={<AlarmPage />} />
           {/* <Route path="/profile" element={<ProfilePage />} /> */}
-          {/* <Route path="/profile" element={<ChatPage />} /> */}
+          <Route path="/profile" element={<ChatPage />} />
         </Route>
         <Route path="*" element={<Navigate to={'/spoon-mate'} />} />
       </Routes>
