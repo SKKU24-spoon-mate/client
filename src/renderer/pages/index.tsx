@@ -2,14 +2,13 @@ import React, { useMemo } from 'react';
 
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider, StyledEngineProvider, createTheme } from '@mui/material/styles';
-import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-
 import { themeSelector } from '@theme/themeSelector';
+import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
 import ChatPage from './Chat/chat';
 import ChatListPage from './Chat/chatlist';
 import { HomePage } from './Login_page';
-// import { ProfilePage } from './Profile_page';
+import { ProfilePage } from './Profile_page';
 import { ProtectedRoute } from './ProtectedRouter';
 import { RegisterPage } from './RegisterPage';
 import { AlarmPage } from './RegisterPage/Alarm';
