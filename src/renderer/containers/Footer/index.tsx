@@ -29,7 +29,7 @@ export const Footer = () => {
           </MenuIconWrapper>
         </NavItem>
         <NavItem sx={{ flex: 1 }}>
-          <MenuIconWrapper onClick={() => navigate(`/profile`)}>
+          <MenuIconWrapper onClick={() => navigate(`/myprofile`)}>
             <ProfileHeader style={{ width: '50%', height: '50%' }} />
             <MenuTypo>나의 프로필</MenuTypo>
           </MenuIconWrapper>

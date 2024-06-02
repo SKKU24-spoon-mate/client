@@ -11,8 +11,6 @@ import ChatListPage from './Chat/chatlist';
 import { HomePage } from './Login_page';
 import { ProfilePage } from './Profile_page';
 import MyProfile from './Profile_page/myprofile';
-import TestProfile from './Profile_page/test';
-import TestProfilePage from './Profile_page/test_profile';
 import UserProfile from './Profile_page/user_profile';
 import { ProtectedRoute } from './ProtectedRouter';
 import { RegisterPage } from './RegisterPage';
@@ -37,12 +35,12 @@ export const AppRoute: React.FC = () => {
   return (
     <React.Fragment>
       <Routes>
-        {/* <Route path="/profile" element={<UserProfile />} /> */}
+        <Route path="/profile" element={<UserProfile />} />
         <Route path="/login" element={<HomePage />} />
         <Route element={<ProtectedRoute />}>
           <Route index path="/spoon-mate" element={<RegisterPage />} />
           <Route path="/alarms" element={<AlarmPage />} />
-          <Route path="/profile" element={<MyProfile />} />
+          <Route path="/myprofile" element={<MyProfile />} />
           <Route index path="/chatlist" element={<ChatListPage />} />
           <Route index path="/chat" element={<ChatPage />} />
         </Route>

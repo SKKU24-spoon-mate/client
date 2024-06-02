@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 
 import { useRecoilValue } from 'recoil';
 
-import { Box, Typography, Avatar, IconButton, Button } from '@mui/material';
+import { Box, Typography, Avatar, IconButton, Button, bottomNavigationActionClasses } from '@mui/material';
 import axios from 'axios';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { ReactComponent as UserDefaultIcon } from '@assets/svg/UserDefault.svg';
+import { Footer } from '@containers';
 import { baseUrl } from '@interfaces';
 import { userStateAtom } from '@states';
 import spoonIcon from 'src/assets/svg/Spoon.svg';
@@ -15,7 +16,6 @@ import ReviewProfile from './review';
 import {
   ReviewBox,
   CommentBox,
-  Footer,
   ProfileContainer,
   InfoBox,
   ScrollableCommentBox,
@@ -53,7 +53,7 @@ const fetchUserProfile = async (userId: string) => {
 
 const submitReview = async (userId: string, review: Review) => {
   try {
-    const response = await axios.post(baseUrl + `/review/${userId}`, review);
+    const response = await axios.post(baseUrl + `/review/submit`, { userId, ...review });
     return response.data;
   } catch (error) {
     console.error('Error submitting review:', error);
@@ -65,6 +65,7 @@ const UserProfile: React.FC = () => {
   // const userState = useRecoilValue(userStateAtom);
   const location = useLocation();
   const { userId } = location.state as { userId: string };
+  // const userId = '665c943fbc4466228cebf936';
   const navigate = useNavigate();
   const [profileData, setProfileData] = useState<UserProfileData | null>(null);
   const [openReviewModal, setOpenReviewModal] = useState(false);
@@ -93,13 +94,14 @@ const UserProfile: React.FC = () => {
 
   const handleReviewSubmit = async (review: Review) => {
     try {
-      await submitReview(userId, review);
+      const response = await submitReview(userId, review);
       if (profileData) {
         setProfileData((prevState) => {
           if (!prevState) return null;
           return {
             ...prevState,
             reviews: [...prevState.reviews, review],
+            average_spoons: response.average_spoons,
           };
         });
         setReviewSubmitted(true);
@@ -234,20 +236,7 @@ const UserProfile: React.FC = () => {
         </ScrollableCommentBox>
       </Box>
 
-      <Footer>
-        <IconButton>
-          {/*<Avatar src="/src/assets/png" /> */}
-          <Typography>지금 밥약!</Typography>
-        </IconButton>
-        <IconButton>
-          {/*<Avatar src="/path/to/icon2.png" />  */}
-          <Typography>채팅</Typography>
-        </IconButton>
-        <IconButton>
-          {/*<Avatar src="/path/to/icon3.png" />  */}
-          <Typography>나의 프로필</Typography>
-        </IconButton>
-      </Footer>
+      <Footer />
     </ProfileContainer>
   );
 };

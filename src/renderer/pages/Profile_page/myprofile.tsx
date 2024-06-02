@@ -8,6 +8,7 @@ import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 
 import { ReactComponent as UserDefaultIcon } from '@assets/svg/UserDefault.svg';
+import { Footer } from '@containers';
 import { baseUrl } from '@interfaces';
 import { userStateAtom } from '@states';
 import LogoImage from 'src/assets/png/Logo.png';
@@ -17,7 +18,6 @@ import EditProfile from './edit_profile';
 import {
   ReviewBox,
   CommentBox,
-  Footer,
   ProfileContainer,
   InfoBox,
   ScrollableCommentBox,
@@ -54,7 +54,10 @@ const fetchMyProfile = async (userId: string) => {
 
 const updateProfile = async (userId: string, updatedData: Partial<UserProfileData>) => {
   try {
-    const response = await axios.post(baseUrl + `/profile/update/${userId}`, updatedData);
+    const response = await axios.put(baseUrl + `/profile/edit`, {
+      userId,
+      ...updatedData,
+    });
     return response.data;
   } catch (error) {
     console.error('Error updating user profile:', error);
@@ -66,7 +69,6 @@ export const MyProfile: React.FC = () => {
   const userState = useRecoilValue(userStateAtom);
   const location = useLocation();
   const userId = location.state.userId;
-  // console.log('location', location.state);
 
   const [profileData, setProfileData] = useState<UserProfileData | null>(null);
   const [openEditModal, setOpenEditModal] = useState(false);
@@ -74,7 +76,7 @@ export const MyProfile: React.FC = () => {
   useEffect(() => {
     const loadProfile = async () => {
       try {
-        const data = await fetchMyProfile(userId);
+        const data = await fetchMyProfile(userState.userId);
         setProfileData(data);
       } catch (error) {
         console.error('Failed to load profile:', error);
@@ -98,17 +100,13 @@ export const MyProfile: React.FC = () => {
     status_message: string;
   }) => {
     try {
-      const updatedProfile = await updateProfile(userId, {
-        favorite_food: newProfileData.favorite_food,
-        age: newProfileData.age,
-        status_message: newProfileData.status_message,
-      });
+      const updatedProfile = await updateProfile(userId, newProfileData);
 
       setProfileData((prevState) => ({
         ...prevState!,
-        favorite_food: updatedProfile.favorite_food,
-        age: updatedProfile.age,
-        status_message: updatedProfile.status_message,
+        favorite_food: newProfileData.favorite_food,
+        age: newProfileData.age,
+        status_message: newProfileData.status_message,
       }));
 
       setOpenEditModal(false);
@@ -221,20 +219,7 @@ export const MyProfile: React.FC = () => {
         </ScrollableCommentBox>
       </Box>
 
-      <Footer>
-        <IconButton>
-          {/*<Avatar src="/src/assets/png" /> */}
-          <Typography>지금 밥약!</Typography>
-        </IconButton>
-        <IconButton>
-          {/*<Avatar src="/path/to/icon2.png" />  */}
-          <Typography>채팅</Typography>
-        </IconButton>
-        <IconButton>
-          {/*<Avatar src="/path/to/icon3.png" />  */}
-          <Typography>나의 프로필</Typography>
-        </IconButton>
-      </Footer>
+      <Footer />
     </ProfileContainer>
   );
 };
