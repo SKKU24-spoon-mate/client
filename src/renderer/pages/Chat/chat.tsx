@@ -91,7 +91,7 @@ const ChatPage: React.FC = () => {
         await axios.post(baseUrl + `/chat/user/${user1}/to/${user2}`, newMessage).then((res) => {
           setMessages((prevMessages) => [...prevMessages, res.data]);
           ws.current?.send(JSON.stringify(res.data.result));
-          setContent(`${user2}님에게 메세지 보내기`);
+          //setContent(`${user2}님에게 메세지 보내기`);
           setIsPlaceholder(true);
         });
       } catch (err: any) {
@@ -135,7 +135,7 @@ const ChatPage: React.FC = () => {
             <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
           </svg>
         </Box>
-        <UserDefault style={{ scale: '200%', marginTop: '10%' }} />
+        <UserDefault style={{ scale: '140%', marginTop: '10%' }} />
         <Box sx={{ fontSize: '3rem', color: '#000', marginTop: '2.5%' }}>{user2}</Box>
       </HeaderBox>
       <ListBox ref={boxRef}>
