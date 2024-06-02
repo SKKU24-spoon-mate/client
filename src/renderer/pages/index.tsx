@@ -2,8 +2,9 @@ import React, { useMemo } from 'react';
 
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider, StyledEngineProvider, createTheme } from '@mui/material/styles';
-import { themeSelector } from '@theme/themeSelector';
 import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+
+import { themeSelector } from '@theme/themeSelector';
 
 import ChatPage from './Chat/chat';
 import ChatListPage from './Chat/chatlist';
