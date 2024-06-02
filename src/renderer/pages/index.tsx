@@ -34,9 +34,9 @@ export const AppRoute: React.FC = () => {
   return (
     <React.Fragment>
       <Routes>
-        <Route index path="/spoon-mate" element={<ChatListPage />} />
+        <Route index path="/chatlist" element={<ChatListPage />} />
         <Route index path="/chat" element={<ChatPage />} />
-        <Route path="*" element={<Navigate to={'/spoon-mate'} />} />
+        <Route path="*" element={<Navigate to={'/chatlist'} />} />
       </Routes>
     </React.Fragment>
   );
