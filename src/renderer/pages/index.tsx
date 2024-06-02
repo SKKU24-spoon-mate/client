@@ -10,6 +10,8 @@ import ChatPage from './Chat/chat';
 import ChatListPage from './Chat/chatlist';
 import { HomePage } from './Login_page';
 import { ProfilePage } from './Profile_page';
+import MyProfile from './Profile_page/myprofile';
+import UserProfile from './Profile_page/user_profile';
 import { ProtectedRoute } from './ProtectedRouter';
 import { RegisterPage } from './RegisterPage';
 import { AlarmPage } from './RegisterPage/Alarm';
@@ -37,8 +39,8 @@ export const AppRoute: React.FC = () => {
         <Route element={<ProtectedRoute />}>
           <Route index path="/spoon-mate" element={<RegisterPage />} />
           <Route path="/alarms" element={<AlarmPage />} />
-          {/* <Route path="/profile" element={<ProfilePage />} /> */}
-          <Route path="/profile" element={<ChatPage />} />
+          <Route path="/profile" element={<MyProfile />} />
+          {/* <Route path="/profile" element={<ChatPage />} /> */}
         </Route>
         <Route path="*" element={<Navigate to={'/spoon-mate'} />} />
       </Routes>
