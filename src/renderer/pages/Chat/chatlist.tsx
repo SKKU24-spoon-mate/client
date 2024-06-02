@@ -1,22 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
 
+import { useRecoilValue } from 'recoil';
+
 import { Box } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
 
-import { ReactComponent as ChatHeader } from '@assets/svg/ChatHeader.svg';
-import { ReactComponent as ProfileHeader } from '@assets/svg/ProfileHeader.svg';
-import { ReactComponent as RegisterHeader } from '@assets/svg/RegisterHeader.svg';
 import { ReactComponent as UserDefault } from '@assets/svg/UserDefault.svg';
 import { Footer } from '@containers';
 import { baseUrl } from '@interfaces';
+import { userStateAtom } from '@states';
 
 import { HeaderBox } from './chatliststyled';
 import { ListBox } from './chatliststyled';
 import { ChatBox } from './chatliststyled';
-import { IconWrapper } from './chatliststyled';
-import { NavItem } from './chatliststyled';
 
 interface MessageFormat {
   from: string;
@@ -27,9 +24,8 @@ interface MessageFormat {
 
 const ChatListPage: React.FC = () => {
   const [messages, setMessages] = useState<MessageFormat[]>([]);
-  //const location = useLocation();
-  //const { user1 } = location.state;
-  const user1 = 'test2'; //
+  const userState = useRecoilValue(userStateAtom);
+  const user1 = userState.userName;
   const [error, setError] = useState<string | null>(null);
   const ws = useRef<WebSocket | null>(null);
   const boxRef = useRef<HTMLDivElement | null>(null);
