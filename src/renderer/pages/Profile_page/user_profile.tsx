@@ -145,7 +145,7 @@ const UserProfile: React.FC = () => {
               backgroundColor: '#477A2F',
               '&:hover': { backgroundColor: '#477A2F' },
               width: '20vw',
-              height: '30%',
+              height: '90%',
               fontSize: '1.5rem',
             }}
             disabled={reviewSubmitted}
@@ -165,7 +165,7 @@ const UserProfile: React.FC = () => {
               '&:hover': { backgroundColor: '#D9D9D9' },
               color: '#000000',
               width: '20vw',
-              height: '30%',
+              height: '90%',
               fontSize: '1.5rem',
             }}
             onClick={handleChatClick}
