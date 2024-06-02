@@ -21,7 +21,7 @@ interface MessageFormat {
   from: string;
   to: string;
   content: string;
-  timestamp: string;
+  createdAt: string;
 }
 
 const ChatListPage: React.FC = () => {
@@ -33,34 +33,23 @@ const ChatListPage: React.FC = () => {
   const ws = useRef<WebSocket | null>(null);
   const boxRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
-    const result: MessageFormat[] = [
-      {
-        from: 'test1',
-        to: 'test2',
-        content: '안녕하세요',
-        timestamp: '오전 10시',
-      },
-    ];
-    setMessages(result);
-    setError(null);
     const fetchChatData = async () => {
       if (user1) {
         try {
           await axios.get(baseUrl + `/chat/id/${user1}`).then((res) => {
-            const filteredMessages = res.data.result
+            const filteredMessages = res.data
               .filter((message: MessageFormat) => message.from === user1 || message.to === user1)
               .reduce((acc: Record<string, MessageFormat>, message: MessageFormat) => {
                 const otherUser = message.from === user1 ? message.to : message.from;
-                if (!acc[otherUser] || new Date(acc[otherUser].timestamp) < new Date(message.timestamp)) {
+                if (!acc[otherUser] || new Date(acc[otherUser].createdAt) < new Date(message.createdAt)) {
                   acc[otherUser] = message;
                 }
                 return acc;
               }, {});
-
             const recentMessages = Object.values(filteredMessages) as MessageFormat[];
+            setMessages(recentMessages);
 
-            //setMessages(recentMessages);
-            //setError(null);
+            setError(null);
           });
         } catch (err: any) {
           if (err.response && err.response.status === 404) {
@@ -119,13 +108,18 @@ const ChatListPage: React.FC = () => {
       <ListBox>
         {messages.map((item: MessageFormat) => {
           let friend: string;
+          const dateTime = new Date(item.createdAt);
+          const hours = dateTime.getUTCHours();
+          const minutes = dateTime.getUTCMinutes();
+          const seconds = dateTime.getUTCSeconds();
+          const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
           if (item.to === user1) {
             friend = item.from;
           } else {
             friend = item.to;
           }
           return (
-            <ChatBox key={`${item.timestamp}-${friend}`} onClick={() => handleChatClick(friend)}>
+            <ChatBox key={`${item.createdAt}-${friend}`} onClick={() => handleChatClick(friend)}>
               <UserDefault
                 style={{
                   width: '40px',
@@ -138,9 +132,9 @@ const ChatListPage: React.FC = () => {
               <Box sx={{ flex: '1' }}>
                 <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                   <Box sx={{ fontSize: '3rem', fontWeight: 'bold' }}>{friend}</Box>
-                  <Box sx={{ fontSize: '1.2rem', color: 'gray', marginLeft: '1rem' }}>{item.timestamp}</Box>
+                  <Box sx={{ fontSize: '1.2rem', color: 'gray', marginLeft: '1rem' }}>{timeString}</Box>
                 </Box>
-                <Box sx={{ color: 'gray', fontSize: '1.4rem', marginTop: '0.5rem' }}>{item.content}</Box>
+                <Box sx={{ color: 'gray', fontSize: '2rem', marginTop: '0.5rem' }}>{item.content}</Box>
               </Box>
             </ChatBox>
           );
