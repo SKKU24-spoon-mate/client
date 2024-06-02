@@ -8,17 +8,17 @@ import { InfoBox } from './styled';
 interface EditProps {
   open: boolean;
   onClose: () => void;
-  onSave: (profileData: { favoriteFood: string; age: number; statusMessage: string }) => void;
-  profileData: { favoriteFood: string; age: number; statusMessage: string };
+  onSave: (profileData: { favorite_food: string; age: number; status_message: string }) => void;
+  profileData: { favorite_food: string; age: number; status_message: string };
 }
 
 const EditProfile: React.FC<EditProps> = ({ open, onClose, onSave, profileData }) => {
-  const [favoriteFood, setFavoriteFood] = useState(profileData.favoriteFood);
+  const [favorite_food, setfavoriteFood] = useState(profileData.favorite_food);
   const [age, setAge] = useState(profileData.age);
-  const [statusMessage, setStatusMessage] = useState(profileData.statusMessage);
+  const [status_message, setstatusMessage] = useState(profileData.status_message);
 
   const handleSave = () => {
-    onSave({ favoriteFood, age, statusMessage });
+    onSave({ favorite_food, age, status_message });
     onClose();
   };
 
@@ -79,8 +79,8 @@ const EditProfile: React.FC<EditProps> = ({ open, onClose, onSave, profileData }
             label="좋아하는 음식"
             variant="outlined"
             fullWidth
-            value={favoriteFood}
-            onChange={(e) => setFavoriteFood(e.target.value)}
+            value={favorite_food}
+            onChange={(e) => setfavoriteFood(e.target.value)}
             sx={{ mb: 2 }}
           />
           <TextField
@@ -105,8 +105,8 @@ const EditProfile: React.FC<EditProps> = ({ open, onClose, onSave, profileData }
             label="나의 한마디"
             variant="outlined"
             fullWidth
-            value={statusMessage}
-            onChange={(e) => setStatusMessage(e.target.value)}
+            value={status_message}
+            onChange={(e) => setstatusMessage(e.target.value)}
             sx={{ mb: 2 }}
           />
           <Button

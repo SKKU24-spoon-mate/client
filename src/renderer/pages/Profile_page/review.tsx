@@ -11,24 +11,25 @@ import { CircleBox } from './styled';
 interface ReviewProps {
   open: boolean;
   onClose: () => void;
+  userId: string;
   onReviewSubmit: (review: { message: string; rating: number }) => void;
 }
 
-const ReviewProfile: React.FC<ReviewProps> = ({ open, onClose, onReviewSubmit }) => {
+const ReviewProfile: React.FC<ReviewProps> = ({ open, onClose, userId, onReviewSubmit }) => {
   const [selectedRating, setSelectedRating] = useState(0);
   const [reviewMessage, setReviewMessage] = useState('');
 
   const handleSubmit = async () => {
+    const review = {
+      message: reviewMessage,
+      rating: selectedRating,
+    };
     try {
-      const response = await axios.post(baseUrl + '/reviews/addReview', {
-        //수정해야함
-        message: reviewMessage,
-        rating: selectedRating,
-      });
-      onReviewSubmit(response.data.review);
+      await axios.post(`/api/review/${userId}`, review); // Adjust the endpoint according to your API
+      onReviewSubmit(review);
       onClose();
     } catch (error) {
-      console.error('Failed to submit review:', error);
+      console.error('Error submitting review:', error);
     }
   };
 
