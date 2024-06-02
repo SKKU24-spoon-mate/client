@@ -52,6 +52,16 @@ const fetchMyProfile = async (userId: string) => {
   }
 };
 
+const updateProfile = async (userId: string, updatedData: Partial<UserProfileData>) => {
+  try {
+    const response = await axios.post(baseUrl + `/profile/update/${userId}`, updatedData);
+    return response.data;
+  } catch (error) {
+    console.error('Error updating user profile:', error);
+    throw error;
+  }
+};
+
 export const MyProfile: React.FC = () => {
   const userState = useRecoilValue(userStateAtom);
   const location = useLocation();
@@ -82,13 +92,29 @@ export const MyProfile: React.FC = () => {
     setOpenEditModal(false);
   };
 
-  const handleSaveProfileData = (newProfileData: { favoriteFood: string; age: number; statusMessage: string }) => {
-    setProfileData((prevState) => ({
-      ...prevState!,
-      favorite_food: newProfileData.favoriteFood,
-      age: newProfileData.age,
-      status_message: newProfileData.statusMessage,
-    }));
+  const handleSaveProfileData = async (newProfileData: {
+    favorite_food: string;
+    age: number;
+    status_message: string;
+  }) => {
+    try {
+      const updatedProfile = await updateProfile(userId, {
+        favorite_food: newProfileData.favorite_food,
+        age: newProfileData.age,
+        status_message: newProfileData.status_message,
+      });
+
+      setProfileData((prevState) => ({
+        ...prevState!,
+        favorite_food: updatedProfile.favorite_food,
+        age: updatedProfile.age,
+        status_message: updatedProfile.status_message,
+      }));
+
+      setOpenEditModal(false);
+    } catch (error) {
+      console.error('Failed to update profile:', error);
+    }
   };
 
   if (!profileData) {
@@ -160,9 +186,9 @@ export const MyProfile: React.FC = () => {
           onClose={handleCloseEditModal}
           onSave={handleSaveProfileData}
           profileData={{
-            favoriteFood: profileData.favorite_food,
+            favorite_food: profileData.favorite_food,
             age: profileData.age,
-            statusMessage: profileData.status_message,
+            status_message: profileData.status_message,
           }}
         />
 

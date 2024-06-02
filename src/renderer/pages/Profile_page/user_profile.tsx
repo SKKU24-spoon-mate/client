@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil';
 
 import { Box, Typography, Avatar, IconButton, Button } from '@mui/material';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { ReactComponent as UserDefaultIcon } from '@assets/svg/UserDefault.svg';
 import { baseUrl } from '@interfaces';
@@ -35,7 +35,6 @@ interface UserProfileData {
   nickname: string;
   profile_image: string;
   favorite_food: string;
-  mbti: string;
   average_spoons: number;
   total_mates: number;
   reviews: Review[];
@@ -43,7 +42,8 @@ interface UserProfileData {
 
 const fetchUserProfile = async (userId: string) => {
   try {
-    const response = await axios.get(baseUrl + '/profile/${userId}');
+    const response = await axios.get(baseUrl + `/profile/${userId}`);
+    // const response = await axios.get(baseUrl + `/profile/665c943fbc4466228cebf936`);
     return response.data;
   } catch (error) {
     console.error('Error fetching user profile:', error);
@@ -51,9 +51,21 @@ const fetchUserProfile = async (userId: string) => {
   }
 };
 
-const UserProfile: React.FC = () => {
-  const userState = useRecoilValue(userStateAtom);
+const submitReview = async (userId: string, review: Review) => {
+  try {
+    const response = await axios.post(baseUrl + `/review/${userId}`, review);
+    return response.data;
+  } catch (error) {
+    console.error('Error submitting review:', error);
+    throw error;
+  }
+};
 
+const UserProfile: React.FC = () => {
+  // const userState = useRecoilValue(userStateAtom);
+  const location = useLocation();
+  const { userId } = location.state as { userId: string };
+  const navigate = useNavigate();
   const [profileData, setProfileData] = useState<UserProfileData | null>(null);
   const [openReviewModal, setOpenReviewModal] = useState(false);
   const [reviewSubmitted, setReviewSubmitted] = useState(false);
@@ -61,7 +73,7 @@ const UserProfile: React.FC = () => {
   useEffect(() => {
     const loadUserProfile = async () => {
       try {
-        const data = await fetchUserProfile(userState.userId!);
+        const data = await fetchUserProfile(userId!);
         setProfileData(data);
       } catch (error) {
         console.error('Failed to load user profile:', error);
@@ -69,7 +81,7 @@ const UserProfile: React.FC = () => {
     };
 
     loadUserProfile();
-  }, [userState.userId]);
+  }, [userId]);
 
   const handleOpenReviewModal = () => {
     setOpenReviewModal(true);
@@ -79,18 +91,29 @@ const UserProfile: React.FC = () => {
     setOpenReviewModal(false);
   };
 
-  const handleReviewSubmit = (review: Review) => {
-    if (profileData) {
-      setProfileData((prevState) => {
-        if (!prevState) return null;
-        return {
-          ...prevState,
-          reviews: [...prevState.reviews, review],
-        };
-      });
-      setReviewSubmitted(true);
+  const handleReviewSubmit = async (review: Review) => {
+    try {
+      await submitReview(userId, review);
+      if (profileData) {
+        setProfileData((prevState) => {
+          if (!prevState) return null;
+          return {
+            ...prevState,
+            reviews: [...prevState.reviews, review],
+          };
+        });
+        setReviewSubmitted(true);
+        setOpenReviewModal(false); // Close the review modal
+      }
+    } catch (error) {
+      console.error('Failed to submit review:', error);
     }
   };
+
+  const handleChatClick = () => {
+    navigate('/chat', { state: { to: userId } });
+  };
+
   if (!profileData) {
     return <Typography>Loading...</Typography>;
   }
@@ -119,7 +142,12 @@ const UserProfile: React.FC = () => {
         >
           숟가락 주기
         </Button>
-        <ReviewProfile open={openReviewModal} onClose={handleCloseReviewModal} onReviewSubmit={handleReviewSubmit} />
+        <ReviewProfile
+          open={openReviewModal}
+          onClose={handleCloseReviewModal}
+          onReviewSubmit={handleReviewSubmit}
+          userId={userId}
+        />
         <Button
           variant="contained"
           sx={{
@@ -130,6 +158,7 @@ const UserProfile: React.FC = () => {
             height: '30%',
             fontSize: '1.5rem',
           }}
+          onClick={handleChatClick}
         >
           채팅하기
         </Button>
