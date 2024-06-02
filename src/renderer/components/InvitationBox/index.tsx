@@ -1,5 +1,7 @@
 import React, { useMemo } from 'react';
 
+import { useNavigate } from 'react-router-dom';
+
 import { ReactComponent as ApplyIcon } from '@assets/svg/Invitation.svg';
 import { ReactComponent as UserDefaultIcon } from '@assets/svg/UserDefault.svg';
 import { RegisteredComponent } from '@interfaces';
@@ -24,9 +26,10 @@ export const InvitationBox: React.FC<InvitationBoxProps> = ({ user }) => {
               : '아무거나',
     [user.menu],
   );
+  const navigate = useNavigate();
   return (
     <InviEntityWrapper sx={{ borderRadius: 24 }}>
-      <UserDefaultIcon width="15%" />
+      <UserDefaultIcon width="15%" onClick={() => navigate(`/profile`)} />
       <LettersWrapper>
         <CommentTypo>{user.comment}</CommentTypo>
         <TagsWrapper>
