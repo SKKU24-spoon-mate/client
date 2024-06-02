@@ -13,7 +13,7 @@ import { ReactComponent as JapaneseIconBox } from '@assets/svg/JapaneseFood.svg'
 import { ReactComponent as KoreanIconBox } from '@assets/svg/KoreanFood.svg';
 import { ReactComponent as WesternIconBox } from '@assets/svg/WesternFood.svg';
 import { CheckedIcon, LogoImage } from '@components';
-import { Deadline, MatchRegister, Menu, RegisteredComponents, baseUrl } from '@interfaces';
+import { Deadline, MatchRegister, Menu, RegisteredComponent, RegisteredComponents, baseUrl } from '@interfaces';
 import { registeredEntitiesAtom, userStateAtom } from '@states';
 
 import {
@@ -30,6 +30,7 @@ import {
 interface RegiModalProps {
   open: boolean;
   handleClose: () => void;
+  setMyRegi: React.Dispatch<React.SetStateAction<RegisteredComponent>>;
 }
 
 const IconBox = (props: {
@@ -43,7 +44,7 @@ const IconBox = (props: {
   </IconWrapper>
 );
 
-export const RegisterModal: React.FC<RegiModalProps> = ({ open, handleClose }) => {
+export const RegisterModal: React.FC<RegiModalProps> = ({ open, handleClose, setMyRegi }) => {
   const [food, setFood] = useState('kor');
   const [deadline, setDeadline] = useState('5');
   const [isAgeShow, setIsAgeShow] = useState(0);
@@ -80,8 +81,16 @@ export const RegisterModal: React.FC<RegiModalProps> = ({ open, handleClose }) =
       console.log('menus!!', submitData);
       // // 3. api 보내기 :: 성공시 모달 닫기
       axios.post(baseUrl + '/match/register', submitData).then((res) => {
-        const updatedRegis = res.data as RegisteredComponents;
-        setRegisteredEntities(updatedRegis);
+        const resData = res.data as RegisteredComponents;
+        if (!_.isUndefined(resData)) {
+          console.log('userState: ' + userState.userId);
+          console.log('resData: ' + resData);
+          const myData = _.find(resData, { userId: userState.userId }) as RegisteredComponent;
+          setMyRegi(myData);
+
+          const othersData = _.filter(resData, (item) => item.userId !== userState.userId);
+          setRegisteredEntities(othersData);
+        }
         handleClose();
       });
       // handleClose();
@@ -92,7 +101,17 @@ export const RegisterModal: React.FC<RegiModalProps> = ({ open, handleClose }) =
       setIsAgeShow(0);
       setComment('');
     },
-    [comment, deadline, food, handleClose, isAgeShow, setRegisteredEntities, userState.userId, userState.userName],
+    [
+      comment,
+      deadline,
+      food,
+      handleClose,
+      isAgeShow,
+      setMyRegi,
+      setRegisteredEntities,
+      userState.userId,
+      userState.userName,
+    ],
   );
   return (
     <>

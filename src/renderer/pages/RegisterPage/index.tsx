@@ -35,6 +35,7 @@ export const RegisterPage = () => {
     sex: 'Male',
     userImage: '',
     userName: '',
+    objectId: '',
   });
 
   const getList = useCallback(async () => {
@@ -86,7 +87,7 @@ export const RegisterPage = () => {
           )}
         </RegiEntitiesWrapper>
       </Box>
-      <RegisterModal open={open} handleClose={handleClose} />
+      <RegisterModal setMyRegi={setMyRegi} open={open} handleClose={handleClose} />
       <Footer />
     </MainWrapper>
   );

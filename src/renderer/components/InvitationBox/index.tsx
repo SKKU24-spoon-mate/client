@@ -36,8 +36,8 @@ export const InvitationBox: React.FC<InvitationBoxProps> = ({ counterUser }) => 
   const navigate = useNavigate();
 
   const navigateToProfile = () => {
-    const uId = counterUser.userId;
-    navigate(`/profile`, { state: { userId: uId } }); // profile 페이지로 userId 인자 전달
+    const uObjId = counterUser.objectId;
+    navigate(`/profile`, { state: { userId: uObjId } }); // profile 페이지로 userId 인자 전달
   };
 
   const postApply = useCallback(() => {

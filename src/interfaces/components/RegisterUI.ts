@@ -11,6 +11,7 @@ export interface RegisteredComponent {
   sex: Sex;
   distance: number | null;
   userName: string;
+  objectId: string;
 }
 
 export type Menu = 'kor' | 'jpn' | 'chn' | 'west' | 'others';
