@@ -1,22 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
 
+import { useRecoilValue } from 'recoil';
+
 import { Box } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
 
-import { ReactComponent as ChatHeader } from '@assets/svg/ChatHeader.svg';
-import { ReactComponent as ProfileHeader } from '@assets/svg/ProfileHeader.svg';
-import { ReactComponent as RegisterHeader } from '@assets/svg/RegisterHeader.svg';
 import { ReactComponent as UserDefault } from '@assets/svg/UserDefault.svg';
 import { Footer } from '@containers';
 import { baseUrl } from '@interfaces';
+import { userStateAtom } from '@states';
 
 import { HeaderBox } from './chatliststyled';
 import { ListBox } from './chatliststyled';
 import { ChatBox } from './chatliststyled';
-import { IconWrapper } from './chatliststyled';
-import { NavItem } from './chatliststyled';
 
 interface MessageFormat {
   from: string;
@@ -27,12 +24,13 @@ interface MessageFormat {
 
 const ChatListPage: React.FC = () => {
   const [messages, setMessages] = useState<MessageFormat[]>([]);
-  //const location = useLocation();
-  //const { user1 } = location.state;
-  const user1 = 'test2'; //
+  const userState = useRecoilValue(userStateAtom);
+  const user1 = userState.userName;
   const [error, setError] = useState<string | null>(null);
   const ws = useRef<WebSocket | null>(null);
   const boxRef = useRef<HTMLDivElement | null>(null);
+  const [contentColor, setContentColor] = useState('black');
+  const [showRedCircle, setShowRedCircle] = useState(true);
   useEffect(() => {
     const fetchChatData = async () => {
       if (user1) {
@@ -95,6 +93,13 @@ const ChatListPage: React.FC = () => {
     navigate('/chat', { state: { user1, to } });
   };
 
+  const handleChatClick1 = (to: string) => {
+    // content 색깔을 검정으로 변경
+    setContentColor('gray');
+    // 빨간 동그라미 삭제
+    setShowRedCircle(false);
+    navigate('/chat', { state: { user1, to } });
+  };
   return (
     <Box
       sx={{
@@ -107,6 +112,39 @@ const ChatListPage: React.FC = () => {
     >
       <HeaderBox>채팅</HeaderBox>
       <ListBox>
+        <ChatBox onClick={() => handleChatClick1('mano')}>
+          <UserDefault
+            style={{
+              width: '40px',
+              height: '40px',
+              marginRight: '3rem',
+              marginLeft: '3rem',
+              scale: '200%',
+            }}
+          />
+          <Box sx={{ flex: '1' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+              <Box sx={{ fontSize: '3rem', fontWeight: 'bold' }}>{'mano'}</Box>
+              <Box sx={{ fontSize: '1.2rem', color: 'gray', marginLeft: '1rem' }}>
+                {'지금'}
+                {showRedCircle && (
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: '17rem',
+                      right: '37rem',
+                      width: '1rem',
+                      height: '1rem',
+                      backgroundColor: 'red',
+                      borderRadius: '50%',
+                    }}
+                  ></Box>
+                )}
+              </Box>
+            </Box>
+            <Box sx={{ color: contentColor, fontSize: '2rem', marginTop: '0.5rem' }}>{'어디신가요?'}</Box>
+          </Box>
+        </ChatBox>
         {messages.map((item: MessageFormat) => {
           let friend: string;
           const dateTime = new Date(item.createdAt);
