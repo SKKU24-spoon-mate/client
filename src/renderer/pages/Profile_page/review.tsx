@@ -8,14 +8,19 @@ import spoonIcon from 'src/assets/svg/Spoon.svg';
 
 import { CircleBox } from './styled';
 
+interface Review {
+  message: string;
+  rating: number;
+}
+
 interface ReviewProps {
   open: boolean;
   onClose: () => void;
+  onReviewSubmit: (review: Review) => void;
   userId: string;
-  onReviewSubmit: (review: { message: string; rating: number }) => void;
 }
 
-const ReviewProfile: React.FC<ReviewProps> = ({ open, onClose, userId, onReviewSubmit }) => {
+const ReviewProfile: React.FC<ReviewProps> = ({ open, onClose, onReviewSubmit, userId }) => {
   const [selectedRating, setSelectedRating] = useState(0);
   const [reviewMessage, setReviewMessage] = useState('');
 
@@ -25,8 +30,7 @@ const ReviewProfile: React.FC<ReviewProps> = ({ open, onClose, userId, onReviewS
       rating: selectedRating,
     };
     try {
-      await axios.post(`/api/review/${userId}`, review); // Adjust the endpoint according to your API
-      onReviewSubmit(review);
+      await onReviewSubmit(review);
       onClose();
     } catch (error) {
       console.error('Error submitting review:', error);

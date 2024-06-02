@@ -1,11 +1,12 @@
 import { Box, styled, Button } from '@mui/material';
 
 export const ProfileContainer = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(2),
+  // padding: theme.spacing(2),
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   textAlign: 'center',
+  height: '100%',
 }));
 
 export const ReviewBox = styled(Box)(({ theme }) => ({
