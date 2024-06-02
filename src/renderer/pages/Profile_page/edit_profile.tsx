@@ -69,19 +69,24 @@ const EditProfile: React.FC<EditProps> = ({ open, onClose, onSave, profileData }
           >
             정보 수정하기
           </Typography>
-          {/* <InfoBox>
-            <Typography sx={{ fontSize: '1.5rem', mt: 1 }}>좋아하는 음식 : 짬뽕, 파스타</Typography>
-          </InfoBox>
-          <InfoBox sx={{ mt: 2 }}>
-            <Typography sx={{ fontSize: '1.5rem', mt: 1 }}>나이 : 24</Typography>
-          </InfoBox> */}
+
           <TextField
             label="좋아하는 음식"
             variant="outlined"
             fullWidth
             value={favorite_food}
             onChange={(e) => setfavoriteFood(e.target.value)}
-            sx={{ mb: 2 }}
+            sx={{
+              mb: 2,
+              '& .MuiInputBase-root': {
+                height: '5vh',
+              },
+            }}
+            InputProps={{
+              style: {
+                fontSize: '1.5rem',
+              },
+            }}
           />
           <TextField
             label="나이"
@@ -90,7 +95,17 @@ const EditProfile: React.FC<EditProps> = ({ open, onClose, onSave, profileData }
             type="number"
             value={age}
             onChange={(e) => setAge(Number(e.target.value))}
-            sx={{ mb: 2 }}
+            sx={{
+              mb: 2,
+              '& .MuiInputBase-root': {
+                height: '5vh',
+              },
+            }}
+            InputProps={{
+              style: {
+                fontSize: '1.5rem',
+              },
+            }}
           />
           <Typography
             variant="body1"
@@ -98,23 +113,39 @@ const EditProfile: React.FC<EditProps> = ({ open, onClose, onSave, profileData }
           >
             나의 한마디
           </Typography>
-          {/* <Box sx={{ backgroundColor: '#D1DBC9', width: '100%', height: '20%' }}>
-            <Typography sx={{ fontSize: '2rem', textAlign: 'center', mt: 5 }}>배고프다</Typography>
-          </Box> */}
+
           <TextField
             label="나의 한마디"
             variant="outlined"
             fullWidth
             value={status_message}
             onChange={(e) => setstatusMessage(e.target.value)}
-            sx={{ mb: 2 }}
+            sx={{
+              mb: 2,
+              '& .MuiInputBase-root': {
+                height: '5vh',
+              },
+            }}
+            InputProps={{
+              style: {
+                fontSize: '1.5rem',
+              },
+            }}
           />
           <Button
             onClick={handleSave}
             variant="contained"
-            sx={{ backgroundColor: '#477A2F', '&:hover': { backgroundColor: '#477A2F' } }}
+            sx={{
+              width: '100%',
+              height: '15%',
+              mt: 5,
+              backgroundColor: '#477A2F',
+              '&:hover': { backgroundColor: '#477A2F' },
+            }}
           >
-            저장
+            <Typography variant="body1" sx={{ fontSize: '2rem', mt: 0.5, mb: 0.5 }}>
+              저장
+            </Typography>
           </Button>
         </Box>
       </Fade>
