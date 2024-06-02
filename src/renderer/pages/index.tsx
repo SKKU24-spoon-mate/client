@@ -2,15 +2,14 @@ import React, { useMemo } from 'react';
 
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider, StyledEngineProvider, createTheme } from '@mui/material/styles';
-import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-
 import { themeSelector } from '@theme/themeSelector';
+import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
 import ChatPage from './Chat/chat';
 import ChatListPage from './Chat/chatlist';
 import { Home } from './Home';
 import { HomePage } from './Login_page';
-// import { ProfilePage } from './Profile_page';
+import { ProfilePage } from './Profile_page';
 import { ProtectedRoute } from './ProtectedRouter';
 import { RegisterPage } from './RegisterPage';
 import { AlarmPage } from './RegisterPage/Alarm';
@@ -34,8 +33,11 @@ export const AppRoute: React.FC = () => {
   return (
     <React.Fragment>
       <Routes>
-        <Route index path="/spoon-mate" element={<ChatPage />} />
-        <Route path="*" element={<Navigate to={'/spoon-mate'} />} />
+        {/* <Route path="login" element={<HomePage />} /> */}
+        {/* <Route index path="/spoon-mate" element={<RegisterPage />} /> */}
+        {/* <Route path="/alarms" element={<AlarmPage />} /> */}
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="*" element={<Navigate to={'/profile'} />} />
       </Routes>
     </React.Fragment>
   );
