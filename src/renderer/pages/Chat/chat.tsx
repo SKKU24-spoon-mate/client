@@ -1,11 +1,17 @@
+import { Console } from 'console';
+
 import React, { useEffect, useRef, useState } from 'react';
 
 import { Box } from '@mui/material';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { ReactComponent as ChatHeader } from '@assets/svg/ChatHeader.svg';
 import { ReactComponent as ProfileHeader } from '@assets/svg/ProfileHeader.svg';
 import { ReactComponent as RegisterHeader } from '@assets/svg/RegisterHeader.svg';
 import { ReactComponent as UserDefault } from '@assets/svg/UserDefault.svg';
+import { baseUrl } from '@interfaces';
 
 import { NavItem, IconWrapper } from './chatliststyled';
 import { HeaderBox, ListBox, FromContent, ToContent } from './chatstyled';
@@ -14,15 +20,14 @@ interface MessageFormat {
   from: string;
   to: string;
   content: string;
-  timestamp: string;
+  createdAt: string;
 }
 
 const ChatPage: React.FC = () => {
-  //const location = useLocation();
-  //const { user1, user2 } = location.state;
-
-  const user1 = 'mano'; // Test value
-  const user2 = 'maru'; // Test value
+  const location = useLocation();
+  const { user1, to } = location.state;
+  const user2 = to;
+  const navigate = useNavigate();
   const [messages, setMessages] = useState<MessageFormat[]>([]);
   const [content, setContent] = useState<string>(`${user2}님에게 메세지 보내기`);
   const [isPlaceholder, setIsPlaceholder] = useState<boolean>(true);
@@ -31,43 +36,32 @@ const ChatPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    /*if (user1 && user2) {
-      axios
-        .get(`/chat/user/${user1}/to/${user2}`)
-        .then((response) => {
-          setMessages(response.data.result);
-          setError(null);
-        })
-        .catch((error) => {
-          if (error.response && error.response.status === 404) {
+    const fetchChatData = async () => {
+      if (user1 && user2) {
+        try {
+          await axios.get(baseUrl + `/chat/id/${user1}`).then((res) => {
+            const filteredMessages = res.data.filter(
+              (message: MessageFormat) =>
+                (message.to === user1 && message.from === user2) || (message.to === user2 && message.from === user1),
+            );
+            setMessages(filteredMessages);
+            setError(null);
+          });
+        } catch (err: any) {
+          if (err.response && err.response.status === 404) {
             setError('Invalid user name');
           } else {
             setError('An error occurred while fetching the chat data');
           }
-        });
-    }*/
-    const result: MessageFormat[] = [
-      {
-        from: 'mano',
-        to: 'maru',
-        content: '안녕하세요',
-        timestamp: '오전 10시',
-      },
-      {
-        from: 'maru',
-        to: 'mano',
-        content: '네 반갑습니다',
-        timestamp: '오전 11시',
-      },
-    ];
-    setMessages(result);
-    setError(null);
-
-    ws.current = new WebSocket('ws://localhost:8000/ws');
+        }
+      }
+    };
+    fetchChatData();
+    ws.current = new WebSocket('ws://localhost:8082/ws');
 
     ws.current.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      if (data.from === user1 || data.to === user2) {
+      if (data.from === user1 || data.to === user1) {
         setMessages((prevMessages) => [...prevMessages, data]);
       }
     };
@@ -83,7 +77,7 @@ const ChatPage: React.FC = () => {
     }
   }, [messages]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (content.trim()) {
       const newMessage = {
@@ -91,32 +85,21 @@ const ChatPage: React.FC = () => {
         to: user2,
         content: content,
       };
-      const newMessage1: MessageFormat = {
-        from: user1,
-        to: user2,
-        content: content,
-        timestamp: '시간모름',
-      };
 
-      setMessages((prevMessages) => [...prevMessages, newMessage1]);
-      ws.current?.send(JSON.stringify(newMessage1));
-      setContent('');
-      setIsPlaceholder(true);
-      /*axios
-        .post(`/chat/user/${user1}/to/${user2}`, newMessage)
-        .then((response) => {
-          setMessages((prevMessages) => [...prevMessages, response.data.result]);
-          ws.current?.send(JSON.stringify(response.data.result));
+      try {
+        await axios.post(baseUrl + `/chat/user/${user1}/to/${user2}`, newMessage).then((res) => {
+          setMessages((prevMessages) => [...prevMessages, res.data]);
+          ws.current?.send(JSON.stringify(res.data.result));
           setContent(`${user2}님에게 메세지 보내기`);
           setIsPlaceholder(true);
-        })
-        .catch((error) => {
-          if (error.response && error.response.status === 500) {
-            console.error('Internal server error');
-          } else {
-            console.error('An error occurred while sending the message');
-          }
-        }); */
+        });
+      } catch (err: any) {
+        if (err.response && err.response.status === 500) {
+          console.error('Internal server error');
+        } else {
+          console.error('An error occurred while sending the message');
+        }
+      }
     }
   };
 
@@ -146,32 +129,27 @@ const ChatPage: React.FC = () => {
       }}
     >
       <HeaderBox>
-        <UserDefault style={{ scale: '300%', marginTop: '10%' }} />
+        <Box onClick={() => navigate(-1)} sx={{ cursor: 'pointer', position: 'absolute', left: '1rem' }}>
+          <svg width="7rem" height="7rem" viewBox="0 0 24 24" style={{ position: 'relative', top: '-5rem' }}>
+            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+          </svg>
+        </Box>
+        <UserDefault style={{ scale: '200%', marginTop: '10%' }} />
         <Box sx={{ fontSize: '3rem', color: '#000', marginTop: '2.5%' }}>{user2}</Box>
       </HeaderBox>
       <ListBox ref={boxRef}>
-        {messages.map((item, index) => (
-          <Box key={index}>
-            {item.from === user1 ? (
-              <FromContent>
-                <Box sx={{ color: '#000', fontSize: '1.5rem' }}>{item.timestamp}</Box>
-                <Box
-                  sx={{
-                    display: 'inline-block',
-                    padding: '0.5rem 1rem',
-                    margin: '0.5rem 0',
-                    borderRadius: '2rem',
-                    fontSize: '3rem',
-                    color: '#FFFFFF',
-                    backgroundColor: '#477A2F',
-                  }}
-                  dangerouslySetInnerHTML={{ __html: item.content.replace(/\n/g, '<br>').replace(/ /g, '&nbsp;') }}
-                ></Box>
-              </FromContent>
-            ) : (
-              <ToContent>
-                <Box>
-                  <Box sx={{ color: '#000', fontSize: '1.5rem' }}>{item.timestamp}</Box>
+        {messages.map((item, index) => {
+          const dateTime = new Date(item.createdAt);
+          const hours = dateTime.getUTCHours();
+          const minutes = dateTime.getUTCMinutes();
+          const seconds = dateTime.getUTCSeconds();
+          const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+          return (
+            <Box key={index}>
+              {item.from === user1 ? (
+                <FromContent>
+                  <Box sx={{ color: '#000', fontSize: '1.5rem' }}>{timeString}</Box>
                   <Box
                     sx={{
                       display: 'inline-block',
@@ -179,16 +157,34 @@ const ChatPage: React.FC = () => {
                       margin: '0.5rem 0',
                       borderRadius: '2rem',
                       fontSize: '3rem',
-                      color: '#000',
-                      backgroundColor: '#E5EAE1',
+                      color: '#FFFFFF',
+                      backgroundColor: '#477A2F',
                     }}
                     dangerouslySetInnerHTML={{ __html: item.content.replace(/\n/g, '<br>').replace(/ /g, '&nbsp;') }}
                   ></Box>
-                </Box>
-              </ToContent>
-            )}
-          </Box>
-        ))}
+                </FromContent>
+              ) : (
+                <ToContent>
+                  <Box>
+                    <Box sx={{ color: '#000', fontSize: '1.5rem' }}>{timeString}</Box>
+                    <Box
+                      sx={{
+                        display: 'inline-block',
+                        padding: '0.5rem 1rem',
+                        margin: '0.5rem 0',
+                        borderRadius: '2rem',
+                        fontSize: '3rem',
+                        color: '#000',
+                        backgroundColor: '#E5EAE1',
+                      }}
+                      dangerouslySetInnerHTML={{ __html: item.content.replace(/\n/g, '<br>').replace(/ /g, '&nbsp;') }}
+                    ></Box>
+                  </Box>
+                </ToContent>
+              )}
+            </Box>
+          );
+        })}
       </ListBox>
       <form
         onSubmit={handleSubmit}
@@ -210,6 +206,7 @@ const ChatPage: React.FC = () => {
           onKeyDown={(e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
               handleSubmit(e);
+              setContent('');
               e.preventDefault(); // Enter 키로 인해 폼이 제출되지 않도록 방지
             }
           }}
@@ -222,7 +219,7 @@ const ChatPage: React.FC = () => {
             backgroundColor: '#D7E5D5',
             fontSize: '3rem',
             resize: 'none',
-            color: '#000',
+            color: '#9B9191',
             display: 'flex',
             justifyContent: 'center',
           }}
