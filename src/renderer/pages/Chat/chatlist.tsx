@@ -162,9 +162,9 @@ const ChatListPage: React.FC = () => {
         {messages.map((item: MessageFormat) => {
           let friend: string;
           const dateTime = new Date(item.createdAt);
-          const hours = dateTime.getUTCHours();
-          const minutes = dateTime.getUTCMinutes();
-          const seconds = dateTime.getUTCSeconds();
+          const hours = dateTime.getHours();
+          const minutes = dateTime.getMinutes();
+          const seconds = dateTime.getSeconds();
           const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
           if (item.to === user1) {
             friend = item.from;

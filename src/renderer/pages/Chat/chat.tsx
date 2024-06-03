@@ -140,9 +140,9 @@ const ChatPage: React.FC = () => {
       <ListBox ref={boxRef}>
         {messages.map((item, index) => {
           const dateTime = new Date(item.createdAt);
-          const hours = dateTime.getUTCHours();
-          const minutes = dateTime.getUTCMinutes();
-          const seconds = dateTime.getUTCSeconds();
+          const hours = dateTime.getHours();
+          const minutes = dateTime.getMinutes();
+          const seconds = dateTime.getSeconds();
           const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
           return (
