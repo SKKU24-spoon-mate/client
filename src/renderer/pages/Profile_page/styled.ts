@@ -6,7 +6,7 @@ export const ProfileContainer = styled(Box)(({ theme }) => ({
   flexDirection: 'column',
   alignItems: 'center',
   textAlign: 'center',
-  height: '100%',
+  height: '90%',
 }));
 
 export const ReviewBox = styled(Box)(({ theme }) => ({
@@ -27,7 +27,7 @@ export const ScrollableCommentBox = styled(Box)(({ theme }) => ({
   padding: theme.spacing(1),
   paddingTop: theme.spacing(2),
   [theme.breakpoints.up('sm')]: {
-    maxHeight: '30vh', // Adjust as needed for larger screens
+    maxHeight: '70%', // Adjust as needed for larger screens
   },
 }));
 
