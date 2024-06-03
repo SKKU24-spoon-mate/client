@@ -29,9 +29,30 @@ const ChatListPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const ws = useRef<WebSocket | null>(null);
   const boxRef = useRef<HTMLDivElement | null>(null);
-  const [contentColor, setContentColor] = useState('black');
+  const [contentColor, setContentColor] = useState('');
   const [showRedCircle, setShowRedCircle] = useState(true);
+  const [renderCount, setRenderCount] = useState(() => {
+    const savedCount = localStorage.getItem('renderCount');
+    return savedCount ? parseInt(savedCount, 10) : 0;
+  });
+  //localStorage.setItem('renderCount', '0');
   useEffect(() => {
+    setRenderCount((prevCount) => {
+      const newCount = prevCount + 1;
+      localStorage.setItem('renderCount', newCount.toString());
+      return newCount;
+    });
+  }, []);
+
+  useEffect(() => {
+    console.log(renderCount);
+    if (renderCount === 0) {
+      setContentColor('black');
+      setShowRedCircle(true);
+    } else if (renderCount === 1) {
+      setContentColor('gray');
+      setShowRedCircle(false);
+    }
     const fetchChatData = async () => {
       if (user1) {
         try {
@@ -93,13 +114,6 @@ const ChatListPage: React.FC = () => {
     navigate('/chat', { state: { to } });
   };
 
-  const handleChatClick1 = (to: string) => {
-    // content 색깔을 검정으로 변경
-    setContentColor('gray');
-    // 빨간 동그라미 삭제
-    setShowRedCircle(false);
-    navigate('/chat', { state: { user1, to } });
-  };
   return (
     <Box
       sx={{
@@ -112,7 +126,7 @@ const ChatListPage: React.FC = () => {
     >
       <HeaderBox>채팅</HeaderBox>
       <ListBox>
-        <ChatBox onClick={() => handleChatClick1('mano')}>
+        <ChatBox onClick={() => handleChatClick('mano')}>
           <UserDefault
             style={{
               width: '40px',
