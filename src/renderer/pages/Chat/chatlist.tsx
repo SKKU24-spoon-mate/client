@@ -126,7 +126,7 @@ const ChatListPage: React.FC = () => {
     >
       <HeaderBox>채팅</HeaderBox>
       <ListBox>
-        <ChatBox onClick={() => handleChatClick('tester6')}>
+        <ChatBox onClick={() => handleChatClick('tester5')}>
           <UserDefault
             style={{
               width: '40px',
@@ -138,7 +138,7 @@ const ChatListPage: React.FC = () => {
           />
           <Box sx={{ flex: '1' }}>
             <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-              <Box sx={{ fontSize: '3rem', fontWeight: 'bold' }}>{'tester6'}</Box>
+              <Box sx={{ fontSize: '3rem', fontWeight: 'bold' }}>{'tester5'}</Box>
               <Box sx={{ fontSize: '1.2rem', color: 'gray', marginLeft: '1rem' }}>
                 {'지금'}
                 {showRedCircle && (
