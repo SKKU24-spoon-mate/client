@@ -129,7 +129,7 @@ const ChatPage: React.FC = () => {
       }}
     >
       <HeaderBox>
-        <Box onClick={() => navigate(-1)} sx={{ cursor: 'pointer', position: 'absolute', left: '1rem' }}>
+        <Box onClick={() => navigate('/chatlist')} sx={{ cursor: 'pointer', position: 'absolute', left: '1rem' }}>
           <svg width="7rem" height="7rem" viewBox="0 0 24 24" style={{ position: 'relative', top: '-5rem' }}>
             <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
           </svg>
