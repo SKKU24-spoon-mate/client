@@ -113,7 +113,7 @@ const UserProfile: React.FC = () => {
   };
 
   const handleChatClick = () => {
-    navigate('/chat', { state: { to: userId } });
+    navigate('/chat', { state: { to: profileData?.nickname } });
   };
 
   if (!profileData) {
@@ -186,7 +186,8 @@ const UserProfile: React.FC = () => {
               }}
             >
               <Typography variant="body1" sx={{ fontSize: '2rem' }}>
-                매칭 횟수 x{profileData.total_mates}
+                {/* 매칭 횟수 x{profileData.total_mates} */}
+                매칭 횟수 x12
               </Typography>
               <CircleBox sx={{ width: '10vw', height: '5vh' }}>
                 <Avatar src={spoonIcon} sx={{ width: 60, height: 60 }} />
