@@ -1,4 +1,12 @@
-## Spoon mate's client
+## Spoon mate's client   ![Generic badge](https://img.shields.io/badge/React-18.2.0-green.svg) ![Generic badge](https://img.shields.io/badge/MUI-5.15.0-blue.svg) ![Generic badge](https://img.shields.io/badge/Recoil-gray.svg)
+> 성균관대학교 학생들을 대상으로 한 밥약 번개 매칭 서비스  
+
+![image](https://github.com/user-attachments/assets/48593024-1b30-4f59-925d-91cd83655de2)
+
+![image](https://github.com/user-attachments/assets/c2e75ff0-bdf5-4062-8f15-e8b8dcb52038){: width="350"}
+
+![image](https://github.com/user-attachments/assets/4105d048-020c-46b2-84e1-330f087b9b7b){: width="350"}
+
 
 ### How to start
 
