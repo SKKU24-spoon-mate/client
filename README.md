@@ -18,7 +18,7 @@ yarn start  # start development server
 
 ### 개발시, 참고할 부분
 
-1. **Lint**
+1. **Lint**  
    **a. What is Lint?**
 
    > 소스 코드에서 문법적 오류, 스타일적 오류 등에 표시를 달아주는 행위

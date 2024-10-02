@@ -1,4 +1,1 @@
-export interface RectangleSpec {
-  width: number | string;
-  height: number | string;
-}
+export * from './RegisterUI';
